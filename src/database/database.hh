@@ -62,7 +62,7 @@ namespace todo
         bool contains(const openutils::sstring &ind) const;
         bool completed(const openutils::sstring &ind);
 
-        openutils::optional_t<openutils::vector_t<todo::heap_pair<openutils::sstring, todo::task>>> search(const openutils::sstring &keyword) const;
+        openutils::optional_t<openutils::vector_t<heap_pair<todo::heap_pair<openutils::sstring, todo::task>, double>>> search(const openutils::sstring &keyword) const;
         bool sort(const openutils::sstring &col, const openutils::sstring &order);
         void clear();
         bool is_changed() const;
@@ -340,9 +340,34 @@ namespace todo
         this->is_db_changed = true;
     }
 
-    openutils::optional_t<openutils::vector_t<todo::heap_pair<openutils::sstring, todo::task>>> database::search(const openutils::sstring &keyword) const
+    openutils::optional_t<openutils::vector_t<heap_pair<todo::heap_pair<openutils::sstring, todo::task>, double>>> database::search(const openutils::sstring &keyword) const
     {
-        openutils::vector_t<todo::heap_pair<openutils::sstring, todo::task>> val;
+        openutils::vector_t<heap_pair<todo::heap_pair<openutils::sstring, todo::task>, double>> val;
+        for (openutils::map_t<openutils::sstring, task>::iter i = this->delta.iterator(); i.c_loop(); i.next())
+        {
+            if (i->value.get_date().to_string().contains(keyword.c_str()) && i->value.get_description().contains(keyword.c_str()))
+                val.add({{i->key, i->value},
+                         ((i->value.get_description().percentage_matched(keyword.c_str()) +
+                           i->value.get_description().edit_distance(keyword.c_str())) /
+                          2.0) +
+                             ((i->value.get_date().to_string().percentage_matched(keyword.c_str()) +
+                               i->value.get_date().to_string().edit_distance(keyword.c_str())) /
+                              2.0)});
+            else if (i->value.get_description().contains(keyword.c_str()))
+                val.add({{i->key, i->value},
+                         ((i->value.get_description().percentage_matched(keyword.c_str()) +
+                           i->value.get_description().edit_distance(keyword.c_str())) /
+                          2.0)});
+            else if (i->value.get_date().to_string().contains(keyword.c_str()))
+                val.add({{i->key, i->value},
+                         ((i->value.get_date().to_string().percentage_matched(keyword.c_str()) +
+                           i->value.get_date().to_string().edit_distance(keyword.c_str())) /
+                          2.0)});
+            else
+                continue;
+        }
+        val.sort([](heap_pair<todo::heap_pair<openutils::sstring, todo::task>, double> a, heap_pair<todo::heap_pair<openutils::sstring, todo::task>, double> b)
+                 { return a.second() < b.second(); });
         return val;
     }
 
