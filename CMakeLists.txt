@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.0)
 project(todo)
 set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_FLAGS_RELEASE "-O3 -Og -s -Ofast -Os")
+set(CMAKE_CXX_FLAGS_RELEASE "-O3 -Og -s -Ofast -Os -march=native")
 add_executable(todo src/main.cc)
