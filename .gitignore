@@ -37,3 +37,7 @@ build
 # VS Code Settings Folder and Visual Studio Settings Folder
 .vscode
 .vs
+
+#Assembly Files
+*.s
+*.asm
