@@ -6,6 +6,7 @@
 #include "../date/date.hh"
 #include "../heap-pair/heap-pair.hh"
 #include "../task/task.hh"
+#include "../database/database.hh"
 
 namespace todo
 {
@@ -17,6 +18,7 @@ namespace todo
 		openutils::optional_t<openutils::sstring> open(const openutils::sstring &location) const;
 		bool save(const openutils::map_t<openutils::sstring, task> &content, const openutils::sstring &location) const;
 		const openutils::sstring get_home_dir() const;
+		bool import_file(const openutils::sstring &loc_old, const openutils::sstring &loc_new) const;
 		~io();
 	};
 
@@ -72,10 +74,23 @@ namespace todo
 #endif
 		if (x.empty())
 		{
-			std::fprintf(stderr, "Could not obtain home path.\n");
+			std::fprintf(stderr, "err: could not obtain home path.\n");
 			std::exit(EXIT_FAILURE);
 		}
 		return x;
+	}
+
+	bool io::import_file(const openutils::sstring &loc_old, const openutils::sstring &loc_new) const
+	{
+		openutils::sstring cont_n = openutils::sstring::open_file(loc_new);
+		if (cont_n.empty())
+		{
+			std::fprintf(stderr, "err: given file is either binary or empty.\n");
+			std::exit(EXIT_FAILURE);
+		}
+		database a;
+		a.lexer(cont_n);
+		return this->save(a.get(), loc_old);
 	}
 
 	io::~io() = default;

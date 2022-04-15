@@ -87,6 +87,50 @@ int main(int argc, char const **argv)
 			return EXIT_FAILURE;
 		}
 	}
+	else if (openutils::sstring::to_sstring(argv[1]) == openutils::sstring::to_sstring("--import"))
+	{
+		if (argc < 3)
+		{
+			std::cerr << "err: not enough arguments" << std::endl;
+			return EXIT_FAILURE;
+		}
+		std::FILE *f = std::fopen(argv[2], "rb");
+		if (!f)
+		{
+			std::cerr << "err: could not open file `" << argv[2] << "`." << std::endl;
+			return EXIT_FAILURE;
+		}
+		std::fclose(f);
+		if (!io.import_file(io.get_home_dir() + "/todo_data.dat", argv[2]))
+		{
+			std::cerr << "err: could not read the contents of the file `" << argv[2] << "`." << std::endl;
+			return EXIT_FAILURE;
+		}
+		std::cout << "All tasks are imported from `" << argv[2] << "`." << std::endl;
+		return EXIT_SUCCESS;
+	}
+	else if (openutils::sstring::to_sstring(argv[1]) == openutils::sstring::to_sstring("--export"))
+	{
+		if (argc < 3)
+		{
+			std::cerr << "err: not enough arguments" << std::endl;
+			return EXIT_FAILURE;
+		}
+		std::FILE *f = std::fopen(argv[2], "wb");
+		if (!f)
+		{
+			std::cerr << "err: could not create file `" << argv[2] << "`." << std::endl;
+			return EXIT_FAILURE;
+		}
+		std::fclose(f);
+		if (!io.save(db.get(), argv[2]))
+		{
+			std::cerr << "err: could not write the contents to the file `" << argv[2] << "`." << std::endl;
+			return EXIT_FAILURE;
+		}
+		std::cout << "All tasks are exported to `" << argv[2] << "`." << std::endl;
+		return EXIT_SUCCESS;
+	}
 	else if (openutils::sstring::to_sstring(argv[1]) == openutils::sstring::to_sstring("--rm"))
 	{
 		if (argc < 3)

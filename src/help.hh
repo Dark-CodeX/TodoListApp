@@ -11,6 +11,8 @@ static const char *help = "USAGE: --OPTION -SUB-OPTIONS\n"
 						  "    --help        print help\r\n"
 						  "    --lib         print all the library used and their respective authors\r\n"
 						  "    --search      search for a keyword in all columns\r\n"
+						  "    --export      exports all the data to a file\r\n"
+						  "    --import      imports a file\r\n"
 						  "    --version     print the current version of the application";
 
 static const char *lib_todo = "Copyright 2022-2023 Tushar Chaurasia\r\n"
@@ -29,6 +31,8 @@ static const char *help = "USAGE: --OPTION -SUB-OPTIONS\n"
 						  "    --help        print help\n"
 						  "    --lib         print all the library used and their respective authors\n"
 						  "    --search      search for a keyword in all columns\n"
+						  "    --export      exports all the data to a file\n"
+						  "    --import      imports a file\n"
 						  "    --version     print the current version of the application";
 
 static const char *lib_todo = "Copyright 2022-2023 Tushar Chaurasia\n"
