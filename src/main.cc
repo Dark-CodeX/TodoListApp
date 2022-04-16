@@ -213,7 +213,22 @@ int main(int argc, char const **argv)
 		}
 	}
 	else if (openutils::sstring::to_sstring(argv[1]) == openutils::sstring::to_sstring("--log"))
-		db.log();
+	{
+		if (argc > 2)
+		{
+			openutils::sstring repeat = argv[2];
+			if (!repeat.is_digit())
+			{
+				std::cerr << "err: `" << repeat << "` should be a number." << std::endl;
+				return EXIT_FAILURE;
+			}
+			std::size_t n_rep = std::strtoul(argv[2], nullptr, 10);
+			for (std::size_t i = 0; i < n_rep; i++)
+				db.log();
+		}
+		else
+			db.log();
+	}
 	else if (openutils::sstring::to_sstring(argv[1]) == openutils::sstring::to_sstring("--sort"))
 	{
 		if (argc < 4)
