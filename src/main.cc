@@ -87,6 +87,21 @@ int main(int argc, char const **argv)
 			return EXIT_FAILURE;
 		}
 	}
+	else if (openutils::sstring::to_sstring(argv[1]) == openutils::sstring::to_sstring("--normalize"))
+	{
+		db.normalize();
+		if (argc >= 3)
+		{
+			openutils::sstring command = argv[2];
+			if (command == openutils::sstring::to_sstring("--log"))
+				db.log();
+			else
+			{
+				std::cerr << "err: unknown command `" << command << "`." << std::endl;
+				return EXIT_FAILURE;
+			}
+		}
+	}
 	else if (openutils::sstring::to_sstring(argv[1]) == openutils::sstring::to_sstring("--import"))
 	{
 		if (argc < 3)

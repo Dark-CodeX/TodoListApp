@@ -64,6 +64,7 @@ namespace todo
 
 		openutils::optional_t<openutils::vector_t<heap_pair<todo::heap_pair<openutils::sstring, todo::task>, double>>> search(const openutils::sstring &keyword) const;
 		bool sort(const openutils::sstring &col, const openutils::sstring &order);
+		void normalize();
 		void clear();
 		bool is_changed() const;
 		void log() const;
@@ -430,6 +431,18 @@ namespace todo
 		}
 		else
 			return false;
+	}
+
+	void database::normalize()
+	{
+		openutils::vector_t<heap_pair<openutils::sstring, task>> temp;
+		for (openutils::iter_map_t i = this->delta.iterator(); i.c_loop(); i.next())
+			temp.add({i->key, i->value});
+		this->delta.erase();
+		std::size_t nos = 1;
+		for (openutils::vector_t<heap_pair<openutils::sstring, task>>::iter i = temp.iterator(); i.c_loop(); i.next())
+			this->delta.add(openutils::sstring::to_sstring(nos++), (*i).second());
+		this->is_db_changed = true;
 	}
 
 	bool database::is_changed() const

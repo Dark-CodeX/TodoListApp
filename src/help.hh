@@ -2,7 +2,7 @@
 
 #if defined _WIN32 || defined _WIN64 || defined __CYGWIN__
 static const char *help = "USAGE: --OPTION -SUB-OPTIONS\n"
-						  "    --log         print todo tasks, works with `--add`, `--rm`, `--edit`, `--complete` and `--sort`\r\n"
+						  "    --log         print todo tasks, works with `--add`, `--rm`, `--edit`, `--complete`, `--sort` and `--normalize`\r\n"
 						  "    --add         adds a task to the database [USE `-desc` and `-date` to enter your task respectively]\r\n"
 						  "    --rm          removes a task at a given index, use `-all` to remove all tasks\r\n"
 						  "    --edit        edit the date and description at a given index [USE `-desc` and `-date` to enter your task respectively]\r\n"
@@ -13,6 +13,7 @@ static const char *help = "USAGE: --OPTION -SUB-OPTIONS\n"
 						  "    --search      search for a keyword in all columns\r\n"
 						  "    --export      exports all the data to a file\r\n"
 						  "    --import      imports a file\r\n"
+						  "    --normalize   normalizes the `sno` column like 1...n, where `n` is number of total tasks\r\n"
 						  "    --version     print the current version of the application";
 
 static const char *lib_todo = "Copyright 2022-2023 Tushar Chaurasia\r\n"
@@ -22,7 +23,7 @@ static const char *lib_todo = "Copyright 2022-2023 Tushar Chaurasia\r\n"
 							  "    4. [returns](https://github.com/Dark-CodeX/returns.git):    Tushar Chaurasia";
 #else
 static const char *help = "USAGE: --OPTION -SUB-OPTIONS\n"
-						  "    --log         print todo tasks, works with `--add`, `--rm`, `--edit`, `--complete` and `--sort`\n"
+						  "    --log         print todo tasks, works with `--add`, `--rm`, `--edit`, `--complete`, `--sort` and `--normalize`\n"
 						  "    --add         adds a task to the database [USE `-desc` and `-date` to enter your task respectively]\n"
 						  "    --rm          removes a task at a given index, use `-all` to remove all tasks\n"
 						  "    --edit        edit the date and description at a given index [USE `-desc` and `-date` to enter your task respectively]\n"
@@ -33,6 +34,7 @@ static const char *help = "USAGE: --OPTION -SUB-OPTIONS\n"
 						  "    --search      search for a keyword in all columns\n"
 						  "    --export      exports all the data to a file\n"
 						  "    --import      imports a file\n"
+						  "    --normalize   normalizes the `sno` column like 1...n, where `n` is number of total tasks\n"
 						  "    --version     print the current version of the application";
 
 static const char *lib_todo = "Copyright 2022-2023 Tushar Chaurasia\n"
