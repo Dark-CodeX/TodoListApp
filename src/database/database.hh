@@ -341,28 +341,33 @@ namespace todo
 		this->is_db_changed = true;
 	}
 
-	openutils::optional_t<openutils::vector_t<heap_pair<todo::heap_pair<openutils::sstring, todo::task>, double>>> database::search(const openutils::sstring &keyword) const
+	openutils::optional_t<openutils::vector_t<heap_pair<todo::heap_pair<openutils::sstring, todo::task>, double>>> database::search(const openutils::sstring &kword) const
 	{
 		openutils::vector_t<heap_pair<todo::heap_pair<openutils::sstring, todo::task>, double>> val;
+		openutils::sstring key_ = kword;
+		key_.to_lower();
+		const char *keyword = key_.c_str();
 		for (openutils::map_t<openutils::sstring, task>::iter i = this->delta.iterator(); i.c_loop(); i.next())
 		{
-			if (i->value.get_date().to_string().contains(keyword.c_str()) && i->value.get_description().contains(keyword.c_str()))
+			openutils::sstring temp_date = i->value.get_date().to_string(), temp_desc = i->value.get_description();
+			temp_desc.to_lower();
+			if (temp_date.contains(keyword) && temp_desc.contains(keyword))
 				val.add({{i->key, i->value},
-						 ((i->value.get_description().percentage_matched(keyword.c_str()) +
-						   i->value.get_description().edit_distance(keyword.c_str())) /
+						 ((temp_desc.percentage_matched(keyword) +
+						   temp_desc.edit_distance(keyword)) /
 						  2.0) +
-							 ((i->value.get_date().to_string().percentage_matched(keyword.c_str()) +
-							   i->value.get_date().to_string().edit_distance(keyword.c_str())) /
+							 ((temp_date.percentage_matched(keyword) +
+							   temp_date.edit_distance(keyword)) /
 							  2.0)});
-			else if (i->value.get_description().contains(keyword.c_str()))
+			else if (temp_desc.contains(keyword))
 				val.add({{i->key, i->value},
-						 ((i->value.get_description().percentage_matched(keyword.c_str()) +
-						   i->value.get_description().edit_distance(keyword.c_str())) /
+						 ((temp_desc.percentage_matched(keyword) +
+						   temp_desc.edit_distance(keyword)) /
 						  2.0)});
-			else if (i->value.get_date().to_string().contains(keyword.c_str()))
+			else if (temp_date.contains(keyword))
 				val.add({{i->key, i->value},
-						 ((i->value.get_date().to_string().percentage_matched(keyword.c_str()) +
-						   i->value.get_date().to_string().edit_distance(keyword.c_str())) /
+						 ((temp_date.percentage_matched(keyword) +
+						   temp_date.edit_distance(keyword)) /
 						  2.0)});
 			else
 				continue;
