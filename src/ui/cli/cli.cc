@@ -43,7 +43,7 @@ int main(int argc, char const **argv)
         {
             openutils::vector_t<todo::heap_pair<todo::heap_pair<openutils::sstring, todo::task>, double>> temp = res.get();
             std::printf("%s\n", todo::center("Tasks", 144, '-').c_str());
-            std::printf("| \u001b[34;1m%s\u001b[0m | \u001b[34;1m%s\u001b[0m | \u001b[34;1m%s\u001b[0m | \u001b[34;1m%s\u001b[0m | \u001b[34;1m%s\u001b[0m | \u001b[34;1m%s\u001b[0m |\n", todo::center("S. No.", 9).c_str(), todo::center("Description", 51).c_str(), todo::center("Valid Till", 21).c_str(), todo::center("Is Expired", 17).c_str(), todo::center("Is Completed", 17).c_str(), todo::center("% Matched", 10).c_str());
+            std::printf("| \u001b[34;1m%s\u001b[0m | \u001b[34;1m%s\u001b[0m | \u001b[34;1m%s\u001b[0m | \u001b[34;1m%s\u001b[0m | \u001b[34;1m%s\u001b[0m | \u001b[34;1m%s\u001b[0m |\n", todo::center("ID", 9).c_str(), todo::center("Description", 51).c_str(), todo::center("Valid Till", 21).c_str(), todo::center("Is Expired", 17).c_str(), todo::center("Is Completed", 17).c_str(), todo::center("% Matched", 10).c_str());
             std::printf("------------------------------------------------------------------------------------------------------------------------------------------------\n");
             for (openutils::vector_t<todo::heap_pair<todo::heap_pair<openutils::sstring, todo::task>, double>>::iter i = temp.iterator(); i.c_loop(); i.next())
             {

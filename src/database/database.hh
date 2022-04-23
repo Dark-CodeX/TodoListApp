@@ -374,7 +374,7 @@ namespace todo
 
 	bool database::sort(const openutils::sstring &col, const openutils::sstring &order)
 	{
-		if (col == "sno")
+		if (col == "id")
 		{
 			if (order == "-a")
 				this->delta.sort_keys([](openutils::sstring a, openutils::sstring b)
@@ -453,7 +453,7 @@ namespace todo
 	void database::log() const
 	{
 		std::printf("%s\n", center("Tasks", 131, '-').c_str());
-		std::printf("| \u001b[34;1m%s\u001b[0m | \u001b[34;1m%s\u001b[0m | \u001b[34;1m%s\u001b[0m | \u001b[34;1m%s\u001b[0m | \u001b[34;1m%s\u001b[0m |\n", center("S. No.", 9).c_str(), center("Description", 51).c_str(), center("Valid Till", 21).c_str(), center("Is Expired", 17).c_str(), center("Is Completed", 17).c_str());
+		std::printf("| \u001b[34;1m%s\u001b[0m | \u001b[34;1m%s\u001b[0m | \u001b[34;1m%s\u001b[0m | \u001b[34;1m%s\u001b[0m | \u001b[34;1m%s\u001b[0m |\n", center("ID", 9).c_str(), center("Description", 51).c_str(), center("Valid Till", 21).c_str(), center("Is Expired", 17).c_str(), center("Is Completed", 17).c_str());
 		std::printf("-----------------------------------------------------------------------------------------------------------------------------------\n");
 		for (openutils::iter_map_t i = this->delta.iterator(); i.c_loop(); i.next())
 		{
