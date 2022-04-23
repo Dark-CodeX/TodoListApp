@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TODO_DATABASE_H
+#define TODO_DATABASE_H
 
 #include "../io/io.hh"
 #include "../date/date.hh"
@@ -9,7 +10,6 @@
 
 namespace todo
 {
-
 	static const openutils::sstring center(const openutils::sstring &str, const std::size_t &width, const char &padding = ' ')
 	{
 		openutils::sstring x;
@@ -495,3 +495,5 @@ namespace todo
 
 	database::~database() = default;
 };
+
+#endif

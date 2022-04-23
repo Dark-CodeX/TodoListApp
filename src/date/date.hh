@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TODO_DATE_H
+#define TODO_DATE_H
 
 #include <ctime>
 #include <cstdio>
@@ -481,3 +482,5 @@ namespace todo
 
 	date::~date() = default;
 };
+
+#endif

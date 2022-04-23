@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TODO_HELP_H
+#define TODO_HELP_H
 
 #if defined _WIN32 || defined _WIN64 || defined __CYGWIN__
 static const char *help = "USAGE: --OPTION -SUB-OPTIONS\n"
@@ -42,4 +43,5 @@ static const char *lib_todo = "Copyright 2022-2023 Tushar Chaurasia\n"
 							  "    2. [vector](https://github.com/Dark-CodeX/vector.git):      Tushar Chaurasia\n"
 							  "    3. [map](https://github.com/Dark-CodeX/map.git):            Tushar Chaurasia\n"
 							  "    4. [returns](https://github.com/Dark-CodeX/returns.git):    Tushar Chaurasia";
+#endif
 #endif

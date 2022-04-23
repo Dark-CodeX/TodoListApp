@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TODO_TAKS_H
+#define TODO_TAKS_H
 
 #include "../date/date.hh"
 #include <openutils/sstring/sstring.hh>
@@ -116,3 +117,5 @@ namespace todo
 
 	task::~task() = default;
 };
+
+#endif

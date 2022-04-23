@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TODO_IO_H
+#define TODO_IO_H
 
 #include <openutils/sstring/sstring.hh>
 #include <openutils/map/map.hh>
@@ -95,3 +96,5 @@ namespace todo
 
 	io::~io() = default;
 };
+
+#endif
