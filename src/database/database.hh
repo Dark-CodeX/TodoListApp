@@ -266,7 +266,7 @@ namespace todo
 		{
 			if (!this->delta.add(inds[i.index()], task(descs[i.index()], date(dates[i.index()]), compts[i.index()])))
 			{
-				std::fprintf(stderr, "err: could not add the data [`%s`, `%s`, `%s`] at index `%s`.\n", descs[i.index()].c_str(), dates[i.index()].c_str(), inds[i.index()].c_str(), openutils::sstring::to_sstring(compts[i.index()]).c_str());
+				std::fprintf(stderr, "err: could not add the data [`%s`, `%s`, `%s`] at index `%s`.\n", descs[i.index()].c_str(), dates[i.index()].c_str(), openutils::sstring::to_sstring(compts[i.index()]).c_str(), inds[i.index()].c_str());
 				std::exit(EXIT_FAILURE);
 			}
 		}
