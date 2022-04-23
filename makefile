@@ -5,5 +5,8 @@ OUT_CLI=./todo
 
 all:cli
 
-cli: $(TARGET_CLI)
+cli:
 	$(CC) $(CFLAGS_CLI) ${TARGET_CLI} -o ${OUT_CLI}
+
+exp:
+	sudo mv ./todo /usr/bin
