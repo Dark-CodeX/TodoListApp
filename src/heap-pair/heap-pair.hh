@@ -1,4 +1,7 @@
-#pragma once
+#ifndef TODO_HEAP_PAIR_H
+#define TODO_HEAP_PAIR_H
+
+#include <openutils/sstring/sstring.hh>
 
 namespace todo
 {
@@ -8,91 +11,92 @@ namespace todo
 	private:
 		FIRST *t1;
 		SECOND *t2;
-		bool is_alloc;
 
 	public:
-		heap_pair() : is_alloc(false) {}
+		heap_pair() : t1(nullptr), t2(nullptr) {}
 
 		heap_pair(const heap_pair<FIRST, SECOND> &obj)
 		{
-			this->is_alloc = obj.is_alloc;
-			if (this->is_alloc)
+			if (obj.t1 && obj.t2)
 			{
-				this->t1 = new FIRST[1];
-				this->t2 = new SECOND[1];
-				this->t1[0] = obj.t1[0];
-				this->t2[0] = obj.t2[0];
+				this->t1 = new FIRST(*obj.t1);
+				openutils::exit_heap_fail(this->t1);
+				this->t2 = new SECOND(*obj.t2);
+				openutils::exit_heap_fail(this->t2);
+			}
+			else
+			{
+				this->t1 = nullptr;
+				this->t2 = nullptr;
 			}
 		}
 
 		heap_pair(heap_pair<FIRST, SECOND> &&obj)
 		{
-			this->is_alloc = obj.is_alloc;
 			this->t1 = obj.t1;
 			this->t2 = obj.t2;
 
-			obj.is_alloc = false;
 			obj.t1 = nullptr;
 			obj.t2 = nullptr;
 		}
 
 		heap_pair(const FIRST &T1, const SECOND &T2)
 		{
-			this->t1 = new FIRST[1];
-			this->t2 = new SECOND[1];
-			this->t1[0] = T1;
-			this->t2[0] = T2;
-			this->is_alloc = true;
+			this->t1 = new FIRST(T1);
+			openutils::exit_heap_fail(this->t1);
+			this->t2 = new SECOND(T2);
+			openutils::exit_heap_fail(this->t2);
 		}
 
 		heap_pair(FIRST &&T1, SECOND &&T2)
 		{
-			this->t1 = new FIRST[1];
-			this->t2 = new SECOND[1];
-			this->t1[0] = T1;
-			this->t2[0] = T2;
-			this->is_alloc = true;
+			this->t1 = new FIRST(T1);
+			openutils::exit_heap_fail(this->t1);
+			this->t2 = new SECOND(T2);
+			openutils::exit_heap_fail(this->t2);
 		}
 
 		heap_pair(std::pair<FIRST, SECOND> pair)
 		{
-			this->t1 = new FIRST[1];
-			this->t2 = new SECOND[1];
-			this->t1[0] = pair.first;
-			this->t2[0] = pair.second;
-			this->is_alloc = true;
+			this->t1 = new FIRST(pair.first);
+			openutils::exit_heap_fail(this->t1);
+			this->t2 = new SECOND(pair.second);
+			openutils::exit_heap_fail(this->t2);
 		}
 
 		const FIRST &first() const
 		{
-			if (this->is_alloc)
-				return this->t1[0];
-			std::fprintf(stderr, "invalid access\n");
-			std::exit(EXIT_FAILURE);
+			if (!this->t1)
+			{
+				std::fprintf(stderr, "err: cannot de-reference a null-pointer\n");
+				std::exit(EXIT_FAILURE);
+			}
+			return *this->t1;
 		}
 
 		const SECOND &second() const
 		{
-			if (this->is_alloc)
-				return this->t2[0];
-			std::fprintf(stderr, "invalid access\n");
-			std::exit(EXIT_FAILURE);
+			if (!this->t2)
+			{
+				std::fprintf(stderr, "err: cannot de-reference a null-pointer\n");
+				std::exit(EXIT_FAILURE);
+			}
+			return *this->t2;
 		}
 
 		void operator=(const heap_pair<FIRST, SECOND> &obj)
 		{
-			if (this->is_alloc)
+			if (obj.t1 && obj.t2)
 			{
-				delete[] this->t1;
-				delete[] this->t2;
-			}
-			this->is_alloc = obj.is_alloc;
-			if (this->is_alloc)
-			{
-				this->t1 = new FIRST[1];
-				this->t2 = new SECOND[1];
-				this->t1[0] = obj.t1[0];
-				this->t2[0] = obj.t2[0];
+				if (this->t1 && this->t2)
+				{
+					delete this->t1;
+					delete this->t2;
+				}
+				this->t1 = new FIRST(*obj.t1);
+				openutils::exit_heap_fail(this->t1);
+				this->t2 = new SECOND(*obj.t2);
+				openutils::exit_heap_fail(this->t2);
 			}
 		}
 
@@ -100,29 +104,32 @@ namespace todo
 		{
 			if (this != &obj)
 			{
-				if (this->is_alloc)
+				if (obj.t1 && obj.t2)
 				{
-					delete[] this->t1;
-					delete[] this->t2;
-				}
-				this->is_alloc = obj.is_alloc;
-				this->t1 = obj.t1;
-				this->t2 = obj.t2;
+					if (this->t1 && this->t2)
+					{
+						delete this->t1;
+						delete this->t2;
+					}
+					this->t1 = obj.t1;
+					this->t2 = obj.t2;
 
-				obj.is_alloc = false;
-				obj.t1 = nullptr;
-				obj.t2 = nullptr;
+					obj.t1 = nullptr;
+					obj.t2 = nullptr;
+				}
 			}
 			return *this;
 		}
 
 		~heap_pair()
 		{
-			if (this->is_alloc)
+			if (this->t1 && this->t2)
 			{
-				delete[] this->t1;
-				delete[] this->t2;
+				delete this->t1;
+				delete this->t2;
 			}
 		}
 	};
 };
+
+#endif
