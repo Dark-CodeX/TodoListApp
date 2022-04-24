@@ -2,7 +2,7 @@
 #define TODO_HELP_H
 
 #if defined _WIN32 || defined _WIN64 || defined __CYGWIN__
-static const char *help = "USAGE: --OPTION -SUB-OPTIONS\n"
+static const char *help = "USAGE: --OPTION -SUB-OPTIONS\r\n"
 						  "    --log         print todo tasks, works with `--add`, `--rm`, `--edit`, `--complete`, `--sort` and `--normalize`\r\n"
 						  "    --add         adds a task to the database [USE `-desc` and `-date` to enter your task respectively]\r\n"
 						  "    --rm          removes a task at a given index, use `-all` to remove all tasks\r\n"
@@ -18,10 +18,10 @@ static const char *help = "USAGE: --OPTION -SUB-OPTIONS\n"
 						  "    --version     print the current version of the application";
 
 static const char *lib_todo = "Copyright 2022-2023 Tushar Chaurasia\r\n"
-							  "    1. [sstring](https://github.com/Dark-CodeX/sstring.git):    Tushar Chaurasia\r\n"
-							  "    2. [vector](https://github.com/Dark-CodeX/vector.git):      Tushar Chaurasia\r\n"
-							  "    3. [map](https://github.com/Dark-CodeX/map.git):            Tushar Chaurasia\r\n"
-							  "    4. [returns](https://github.com/Dark-CodeX/returns.git):    Tushar Chaurasia";
+							  "    1. [sstring v" sstring_version "]      (https://github.com/Dark-CodeX/sstring.git)        Tushar Chaurasia\r\n"
+							  "    2. [vector v" vector_t_version "]       (https://github.com/Dark-CodeX/vector.git)         Tushar Chaurasia\r\n"
+							  "    3. [map v" map_t_version "]          (https://github.com/Dark-CodeX/map.git)            Tushar Chaurasia\r\n"
+							  "    4. [returns v" returns_version "]      (https://github.com/Dark-CodeX/returns.git)        Tushar Chaurasia";
 #else
 static const char *help = "USAGE: --OPTION -SUB-OPTIONS\n"
 						  "    --log         print todo tasks, works with `--add`, `--rm`, `--edit`, `--complete`, `--sort` and `--normalize`\n"
@@ -39,9 +39,9 @@ static const char *help = "USAGE: --OPTION -SUB-OPTIONS\n"
 						  "    --version     print the current version of the application";
 
 static const char *lib_todo = "Copyright 2022-2023 Tushar Chaurasia\n"
-							  "    1. [sstring](https://github.com/Dark-CodeX/sstring.git):    Tushar Chaurasia\n"
-							  "    2. [vector](https://github.com/Dark-CodeX/vector.git):      Tushar Chaurasia\n"
-							  "    3. [map](https://github.com/Dark-CodeX/map.git):            Tushar Chaurasia\n"
-							  "    4. [returns](https://github.com/Dark-CodeX/returns.git):    Tushar Chaurasia";
+							  "    1. [sstring v" sstring_version "]      (https://github.com/Dark-CodeX/sstring.git)        Tushar Chaurasia\n"
+							  "    2. [vector v" vector_t_version "]       (https://github.com/Dark-CodeX/vector.git)         Tushar Chaurasia\n"
+							  "    3. [map v" map_t_version "]          (https://github.com/Dark-CodeX/map.git)            Tushar Chaurasia\n"
+							  "    4. [returns v" returns_version "]      (https://github.com/Dark-CodeX/returns.git)        Tushar Chaurasia";
 #endif
 #endif
