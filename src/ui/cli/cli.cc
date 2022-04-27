@@ -170,7 +170,14 @@ int main(int argc, char const **argv)
                 }
             }
             if (db.is_changed())
-                io.save(db.get(), io.get_home_dir() + "/todo_data.dat");
+            {
+                if (!io.save(db.get(), io.get_home_dir() + "/todo_data.dat"))
+                {
+                    std::cerr << "err: could not save file at `" << io.get_home_dir() + "/todo_data.dat"
+                              << "`." << std::endl;
+                    return EXIT_FAILURE;
+                }
+            }
             return EXIT_SUCCESS;
         }
         if (!com.is_digit())
@@ -406,12 +413,12 @@ int main(int argc, char const **argv)
         }
         if (!db.add(todo::task(__desc, todo::date(__date))))
         {
-            std::cerr << "err: could not add the task [`" << __desc << "`, `" << __date << "`] at index `" << db.get_last_index() + 1 << "`." << std::endl;
+            std::cerr << "err: could not add the task [`" << __desc << "`, `" << __date << "`] at index `" << db.get_last_index() << "`." << std::endl;
             return EXIT_FAILURE;
         }
         else
         {
-            std::cerr << "Task added [`" << __desc << "`, `" << __date << "`] at index `" << db.get_last_index() + 1 << "`." << std::endl;
+            std::cerr << "Task added [`" << __desc << "`, `" << __date << "`] at index `" << db.get_last_index() << "`." << std::endl;
             if (argc >= 7)
             {
                 if (openutils::sstring::to_sstring(argv[6]) == openutils::sstring::to_sstring("--log"))
@@ -430,6 +437,13 @@ int main(int argc, char const **argv)
         return EXIT_FAILURE;
     }
     if (db.is_changed())
-        io.save(db.get(), io.get_home_dir() + "/todo_data.dat");
+    {
+        if (!io.save(db.get(), io.get_home_dir() + "/todo_data.dat"))
+        {
+            std::cerr << "err: could not save file at `" << io.get_home_dir() + "/todo_data.dat"
+                      << "`." << std::endl;
+            return EXIT_FAILURE;
+        }
+    }
     return EXIT_SUCCESS;
 }
