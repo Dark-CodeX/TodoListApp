@@ -294,6 +294,7 @@ namespace todo
 		if (this->delta.add(openutils::sstring::to_sstring(this->last_index + 1), tsk))
 		{
 			this->is_db_changed = true;
+			this->last_index++;
 			this->mark_active();
 			return true;
 		}
