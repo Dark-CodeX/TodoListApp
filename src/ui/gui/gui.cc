@@ -3,7 +3,7 @@
 int main(int argc, char **argv)
 {
 	Glib::RefPtr<Gtk::Application> app = Gtk::Application::create(argc, argv, "org.gtkmm.example");
-	builder = Gtk::Builder::create_from_file("./design.glade");
+	builder = Gtk::Builder::create_from_string(ui_design_xml);
 
 	init_variables();
 	init_database();
