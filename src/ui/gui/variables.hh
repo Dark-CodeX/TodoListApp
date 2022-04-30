@@ -6,7 +6,7 @@
 #include <gtkmm/entry.h>
 #include <gtkmm/calendar.h>
 #include <gtkmm/builder.h>
-#include <gtkmm/grid.h>
+#include <gtkmm/textview.h>
 #include <gtkmm/messagedialog.h>
 #include <gtkmm/checkbutton.h>
 #include <gtkmm/comboboxtext.h>
@@ -21,7 +21,7 @@
 
 Gtk::Window *main_window = nullptr;
 
-Gtk::Grid *main_table = nullptr;
+Gtk::TextView *main_table = nullptr;
 
 Gtk::Button *add_btn = nullptr;
 Gtk::Entry *add_desc = nullptr;
@@ -57,6 +57,7 @@ todo::io IO;
 todo::database base_db;
 
 class Glib::RefPtr<Gtk::Builder> builder;
+Glib::RefPtr<Gtk::TextBuffer> ref = Gtk::TextBuffer::create();
 
 #pragma endregion VAR
 
