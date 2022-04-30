@@ -56,6 +56,8 @@ Gtk::Button *export_btn = nullptr;
 Gtk::SearchEntry *search_key = nullptr;
 Gtk::TextView *search_table = nullptr;
 
+openutils::sstring app_location;
+
 todo::io IO;
 todo::database base_db;
 
