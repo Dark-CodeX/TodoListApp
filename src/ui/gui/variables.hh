@@ -52,12 +52,12 @@ Gtk::FileChooserButton *export_open = nullptr;
 Gtk::Button *export_btn = nullptr;
 
 Gtk::SearchEntry *search_key = nullptr;
+Gtk::TextView *search_table = nullptr;
 
 todo::io IO;
 todo::database base_db;
 
 class Glib::RefPtr<Gtk::Builder> builder;
-Glib::RefPtr<Gtk::TextBuffer> ref = Gtk::TextBuffer::create();
 
 #pragma endregion VAR
 
