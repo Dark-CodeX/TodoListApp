@@ -77,7 +77,7 @@ void remove_task()
 {
 	if (remove_all->get_active())
 	{
-		Gtk::MessageDialog dialog("Do you really want to remove all the tasks?", false, Gtk::MessageType::MESSAGE_INFO, Gtk::ButtonsType::BUTTONS_YES_NO, false);
+		Gtk::MessageDialog dialog("Do you really want to remove all the tasks?", false, Gtk::MessageType::MESSAGE_QUESTION, Gtk::ButtonsType::BUTTONS_YES_NO, false);
 		dialog.set_title("Remove Task");
 		dialog.set_default_response(Gtk::ResponseType::RESPONSE_NO);
 		int res = dialog.run();
@@ -192,8 +192,20 @@ void import_task()
 		msgbox("No file is selected.", "Error: Import Failed");
 		return;
 	}
-	if(!IO.import_file(IO.get_home_dir() + "/todo_data.dat", import_open->get_filename().c_str()))
+	if (!IO.import_file(IO.get_home_dir() + "/todo_data.dat", import_open->get_filename().c_str()))
 		msgbox("Could not import the tasks.", "Error: Import Failed");
+
+	Gtk::MessageDialog dialog("Do you want to restart the application?", false, Gtk::MessageType::MESSAGE_QUESTION, Gtk::ButtonsType::BUTTONS_YES_NO, false);
+	dialog.set_title("Import Task");
+	dialog.set_default_response(Gtk::ResponseType::RESPONSE_YES);
+	int res = dialog.run();
+	if (res == Gtk::RESPONSE_YES)
+	{
+		std::system(app_location.c_str());
+		std::exit(EXIT_SUCCESS);
+	}
+	else
+		return;
 }
 
 void search_task()
