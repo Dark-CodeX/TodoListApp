@@ -47,7 +47,9 @@ void init_variables()
 
 	builder->get_widget("search_key", search_key);
 	openutils::exit_heap_fail(search_key);
-	/// search_key->signal_insert_text()
+
+	builder->get_widget("search_table", search_table);
+	openutils::exit_heap_fail(search_table);
 
 	builder->get_widget("sort_select_col", sort_select_col);
 	openutils::exit_heap_fail(sort_select_col);
@@ -99,6 +101,9 @@ void init_variables()
 	openutils::exit_heap_fail(import_btn);
 	import_btn->signal_clicked().connect([]()
 										 { import_task(); });
+
+	search_key->signal_search_changed().connect([]()
+											 { search_task(); });
 }
 
 void remove_variables()
@@ -132,6 +137,7 @@ void remove_variables()
 	delete export_btn;
 
 	delete search_key;
+	delete search_table;
 
 	delete main_window;
 }
