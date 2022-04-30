@@ -122,8 +122,10 @@ namespace todo
 				}
 			}
 		}
-
-		this->last_index = std::strtoull(inds[inds.length() - 1].c_str(), nullptr, 10);
+		if (inds.length() != 0)
+			this->last_index = std::strtoull(inds[inds.length() - 1].c_str(), nullptr, 10);
+		else
+			this->last_index = 0;
 
 		for (std::size_t i = 1; i < st.length(); i += 4)
 		{
