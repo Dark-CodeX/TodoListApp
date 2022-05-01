@@ -196,7 +196,7 @@ void search_task()
 	{
 		auto temp = base_db.search(spt[i]);
 		for (auto k = temp.iterator(); k.c_loop(); k.next())
-			res.add((*k).first().first(), {todo::task((*k).first().second().get_description(), (*k).first().second().get_date(), (*k).first().second().is_completed()), (*k).second()});
+			res.add((*k).first().first(), {(*k).first().second(), (*k).second()});
 	}
 
 	openutils::sstring str;
