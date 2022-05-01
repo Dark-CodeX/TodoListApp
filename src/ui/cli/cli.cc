@@ -37,59 +37,56 @@ int main(int argc, char const **argv)
 			std::cerr << "err: not enough arguments" << std::endl;
 			return EXIT_FAILURE;
 		}
-		openutils::sstring key = argv[2];
-		openutils::optional_t<openutils::vector_t<todo::heap_pair<todo::heap_pair<openutils::sstring, todo::task>, double>>> res = db.search(key);
-		if (res)
+
+		openutils::map_t<openutils::sstring, todo::heap_pair<todo::task, double>> res;
+		for (int i = 2; i < argc; i++)
 		{
-			openutils::vector_t<todo::heap_pair<todo::heap_pair<openutils::sstring, todo::task>, double>> temp = res.get();
-			if (temp.length() == 0)
-			{
-				std::cerr << "err: nothing found related to keyword `" << key << "`." << std::endl;
-				return EXIT_FAILURE;
-			}
-			std::printf("%s\n", todo::center("Tasks", 144, '-').c_str());
-			std::printf("| \u001b[34;1m%s\u001b[0m | \u001b[34;1m%s\u001b[0m | \u001b[34;1m%s\u001b[0m | \u001b[34;1m%s\u001b[0m | \u001b[34;1m%s\u001b[0m | \u001b[34;1m%s\u001b[0m |\n", todo::center("ID", 9).c_str(), todo::center("Description", 51).c_str(), todo::center("Valid Till", 21).c_str(), todo::center("Is Expired", 17).c_str(), todo::center("Is Completed", 17).c_str(), todo::center("% Matched", 10).c_str());
-			std::printf("------------------------------------------------------------------------------------------------------------------------------------------------\n");
-			for (openutils::vector_t<todo::heap_pair<todo::heap_pair<openutils::sstring, todo::task>, double>>::iter i = temp.iterator(); i.c_loop(); i.next())
-			{
-				if ((*i).first().second().is_completed() == false && (*i).first().second().is_expired() == true)
-					std::printf("| \u001b[31;1m%s\u001b[0m | \u001b[31;1m%s\u001b[0m | \u001b[31;1m%s\u001b[0m | \u001b[31;1m%s\u001b[0m | \u001b[31;1m%s\u001b[0m | \u001b[31;1m%s\u001b[0m |\n",
-								todo::center((*i).first().first(), 9).c_str(),
-								todo::center((*i).first().second().get_description(), 51).c_str(),
-								todo::center((*i).first().second().get_date().to_string() + " (" + openutils::sstring::to_sstring((*i).first().second().get_date().days_between(todo::date())) + " DAYS)", 21).c_str(),
-								todo::center(openutils::sstring::to_sstring((*i).first().second().is_expired()), 17).c_str(),
-								todo::center(openutils::sstring::to_sstring((*i).first().second().is_completed()), 17).c_str(),
-								todo::center(openutils::sstring::to_sstring((*i).second()), 10).c_str());
-				else if ((*i).first().second().is_completed() == false && (*i).first().second().is_expired() == false)
-					std::printf("| \u001b[33;1m%s\u001b[0m | \u001b[33;1m%s\u001b[0m | \u001b[33;1m%s\u001b[0m | \u001b[33;1m%s\u001b[0m | \u001b[33;1m%s\u001b[0m | \u001b[33;1m%s\u001b[0m |\n",
-								todo::center((*i).first().first(), 9).c_str(),
-								todo::center((*i).first().second().get_description(), 51).c_str(),
-								todo::center((*i).first().second().get_date().to_string() + " (" + openutils::sstring::to_sstring((*i).first().second().get_date().days_between(todo::date())) + " DAYS)", 21).c_str(),
-								todo::center(openutils::sstring::to_sstring((*i).first().second().is_expired()), 17).c_str(),
-								todo::center(openutils::sstring::to_sstring((*i).first().second().is_completed()), 17).c_str(),
-								todo::center(openutils::sstring::to_sstring((*i).second()), 10).c_str());
-				else if ((*i).first().second().is_completed() == true && (*i).first().second().is_expired() == false)
-					std::printf("| \u001b[32;1m%s\u001b[0m | \u001b[32;1m%s\u001b[0m | \u001b[32;1m%s\u001b[0m | \u001b[32;1m%s\u001b[0m | \u001b[32;1m%s\u001b[0m | \u001b[32;1m%s\u001b[0m |\n",
-								todo::center((*i).first().first(), 9).c_str(),
-								todo::center((*i).first().second().get_description(), 51).c_str(),
-								todo::center((*i).first().second().get_date().to_string() + " (" + openutils::sstring::to_sstring((*i).first().second().get_date().days_between(todo::date())) + " DAYS)", 21).c_str(),
-								todo::center(openutils::sstring::to_sstring((*i).first().second().is_expired()), 17).c_str(),
-								todo::center(openutils::sstring::to_sstring((*i).first().second().is_completed()), 17).c_str(),
-								todo::center(openutils::sstring::to_sstring((*i).second()), 10).c_str());
-				else if ((*i).first().second().is_completed() == true && (*i).first().second().is_expired() == true)
-					std::printf("| %s | %s | %s | %s | %s | %s |\n", todo::center((*i).first().first(), 9).c_str(),
-								todo::center((*i).first().second().get_description(), 51).c_str(),
-								todo::center((*i).first().second().get_date().to_string() + " (" + openutils::sstring::to_sstring((*i).first().second().get_date().days_between(todo::date())) + " DAYS)", 21).c_str(),
-								todo::center(openutils::sstring::to_sstring((*i).first().second().is_expired()), 17).c_str(),
-								todo::center(openutils::sstring::to_sstring((*i).first().second().is_completed()), 17).c_str(),
-								todo::center(openutils::sstring::to_sstring((*i).second()), 10).c_str());
-				std::printf("------------------------------------------------------------------------------------------------------------------------------------------------\n");
-			}
+			auto temp = db.search(argv[i]);
+			for (auto k = temp.iterator(); k.c_loop(); k.next())
+				res.add((*k).first().first(), {(*k).first().second(), (*k).second()});
 		}
-		else
+		if (res.length() == 0)
 		{
-			std::cerr << "err: nothing found related to keyword `" << key << "`." << std::endl;
+			std::cerr << "err: nothing found" << std::endl;
 			return EXIT_FAILURE;
+		}
+		std::printf("%s\n", todo::center("Tasks", 144, '-').c_str());
+		std::printf("| \u001b[34;1m%s\u001b[0m | \u001b[34;1m%s\u001b[0m | \u001b[34;1m%s\u001b[0m | \u001b[34;1m%s\u001b[0m | \u001b[34;1m%s\u001b[0m | \u001b[34;1m%s\u001b[0m |\n", todo::center("ID", 9).c_str(), todo::center("Description", 51).c_str(), todo::center("Valid Till", 21).c_str(), todo::center("Is Expired", 17).c_str(), todo::center("Is Completed", 17).c_str(), todo::center("% Matched", 10).c_str());
+		std::printf("------------------------------------------------------------------------------------------------------------------------------------------------\n");
+		for (openutils::map_t<openutils::sstring, todo::heap_pair<todo::task, double>>::iter i = res.iterator(); i.c_loop(); i.next())
+		{
+			if ((*i)->value.first().is_completed() == false && (*i)->value.first().is_expired() == true)
+				std::printf("| \u001b[31;1m%s\u001b[0m | \u001b[31;1m%s\u001b[0m | \u001b[31;1m%s\u001b[0m | \u001b[31;1m%s\u001b[0m | \u001b[31;1m%s\u001b[0m | \u001b[31;1m%s\u001b[0m |\n",
+							todo::center((*i)->key, 9).c_str(),
+							todo::center((*i)->value.first().get_description(), 51).c_str(),
+							todo::center((*i)->value.first().get_date().to_string() + " (" + openutils::sstring::to_sstring((*i)->value.first().get_date().days_between(todo::date())) + " DAYS)", 21).c_str(),
+							todo::center(openutils::sstring::to_sstring((*i)->value.first().is_expired()), 17).c_str(),
+							todo::center(openutils::sstring::to_sstring((*i)->value.first().is_completed()), 17).c_str(),
+							todo::center(openutils::sstring::to_sstring((*i)->value.second()), 10).c_str());
+			else if ((*i)->value.first().is_completed() == false && (*i)->value.first().is_expired() == false)
+				std::printf("| \u001b[33;1m%s\u001b[0m | \u001b[33;1m%s\u001b[0m | \u001b[33;1m%s\u001b[0m | \u001b[33;1m%s\u001b[0m | \u001b[33;1m%s\u001b[0m | \u001b[33;1m%s\u001b[0m |\n",
+							todo::center((*i)->key, 9).c_str(),
+							todo::center((*i)->value.first().get_description(), 51).c_str(),
+							todo::center((*i)->value.first().get_date().to_string() + " (" + openutils::sstring::to_sstring((*i)->value.first().get_date().days_between(todo::date())) + " DAYS)", 21).c_str(),
+							todo::center(openutils::sstring::to_sstring((*i)->value.first().is_expired()), 17).c_str(),
+							todo::center(openutils::sstring::to_sstring((*i)->value.first().is_completed()), 17).c_str(),
+							todo::center(openutils::sstring::to_sstring((*i)->value.second()), 10).c_str());
+			else if ((*i)->value.first().is_completed() == true && (*i)->value.first().is_expired() == false)
+				std::printf("| \u001b[32;1m%s\u001b[0m | \u001b[32;1m%s\u001b[0m | \u001b[32;1m%s\u001b[0m | \u001b[32;1m%s\u001b[0m | \u001b[32;1m%s\u001b[0m | \u001b[32;1m%s\u001b[0m |\n",
+							todo::center((*i)->key, 9).c_str(),
+							todo::center((*i)->value.first().get_description(), 51).c_str(),
+							todo::center((*i)->value.first().get_date().to_string() + " (" + openutils::sstring::to_sstring((*i)->value.first().get_date().days_between(todo::date())) + " DAYS)", 21).c_str(),
+							todo::center(openutils::sstring::to_sstring((*i)->value.first().is_expired()), 17).c_str(),
+							todo::center(openutils::sstring::to_sstring((*i)->value.first().is_completed()), 17).c_str(),
+							todo::center(openutils::sstring::to_sstring((*i)->value.second()), 10).c_str());
+			else if ((*i)->value.first().is_completed() == true && (*i)->value.first().is_expired() == true)
+				std::printf("| %s | %s | %s | %s | %s | %s |\n", todo::center((*i)->key, 9).c_str(),
+							todo::center((*i)->value.first().get_description(), 51).c_str(),
+							todo::center((*i)->value.first().get_date().to_string() + " (" + openutils::sstring::to_sstring((*i)->value.first().get_date().days_between(todo::date())) + " DAYS)", 21).c_str(),
+							todo::center(openutils::sstring::to_sstring((*i)->value.first().is_expired()), 17).c_str(),
+							todo::center(openutils::sstring::to_sstring((*i)->value.first().is_completed()), 17).c_str(),
+							todo::center(openutils::sstring::to_sstring((*i)->value.second()), 10).c_str());
+			std::printf("------------------------------------------------------------------------------------------------------------------------------------------------\n");
 		}
 	}
 	else if (openutils::sstring::to_sstring(argv[1]) == openutils::sstring::to_sstring("--normalize"))
