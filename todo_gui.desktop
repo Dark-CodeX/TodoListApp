@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name[en_GB]=Todo
+Name[en]=Todo
+Comment[en_GB]=Manages TODOs for work efficiency
+Comment[en]=Manages TODOs for work efficiency
+Exec=todo-gui
+StartupNotify=true
+Categories=todo;task;work;
+Keywords[en_GB]=todo;task;work;
+Keywords[en]=todo;task;work;
