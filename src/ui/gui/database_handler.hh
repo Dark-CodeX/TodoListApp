@@ -143,7 +143,7 @@ void edit_task()
 
 void complete_task()
 {
-	openutils::sstring ind = edit_id->get_text().c_str();
+	openutils::sstring ind = compt_id->get_text().c_str();
 	if (!ind.is_digit())
 	{
 		msgbox("Index should be a positive integer.", "Error: NAN");
