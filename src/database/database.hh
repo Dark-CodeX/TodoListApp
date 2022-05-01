@@ -357,19 +357,19 @@ namespace todo
 			if ((temp_date.soundex() == key_.soundex() || temp_date.contains(keyword) || temp_date.starts_with(keyword) || temp_date.ends_with(keyword)) && (temp_desc.soundex() == key_.soundex() || temp_desc.contains(keyword) || temp_desc.starts_with(keyword) || temp_desc.ends_with(keyword)))
 				val.add({{i->key, i->value},
 						 2 * ((temp_desc.percentage_matched(keyword) +
-							   temp_desc.edit_distance(keyword)) /
-							  2.0) +
+								 temp_desc.edit_distance(keyword)) /
+								2.0) +
 							 ((temp_date.percentage_matched(keyword) +
-							   temp_date.edit_distance(keyword)) /
-							  2.0)});
+								 temp_date.edit_distance(keyword)) /
+								2.0)});
 			else if (temp_desc.soundex() == key_.soundex() || temp_desc.contains(keyword) || temp_desc.starts_with(keyword) || temp_desc.ends_with(keyword))
 				val.add({{i->key, i->value},
 						 ((temp_desc.percentage_matched(keyword) +
-						   temp_desc.edit_distance(keyword)))});
+							 temp_desc.edit_distance(keyword)))});
 			else if (temp_date.soundex() == key_.soundex() || temp_date.contains(keyword) || temp_date.starts_with(keyword) || temp_date.ends_with(keyword))
 				val.add({{i->key, i->value},
 						 ((temp_date.percentage_matched(keyword) +
-						   temp_date.edit_distance(keyword)))});
+							 temp_date.edit_distance(keyword)))});
 			else
 				continue;
 		}
@@ -384,10 +384,10 @@ namespace todo
 		{
 			if (order == "-a")
 				this->delta.sort_keys([](openutils::sstring a, openutils::sstring b)
-									  {std::size_t x = std::strtoul(a.c_str(), nullptr, 10); std::size_t y = std::strtoul(b.c_str(), nullptr, 10); return x<y; });
+										{std::size_t x = std::strtoul(a.c_str(), nullptr, 10); std::size_t y = std::strtoul(b.c_str(), nullptr, 10); return x<y; });
 			else
 				this->delta.sort_keys([](openutils::sstring a, openutils::sstring b)
-									  {std::size_t x = std::strtoul(a.c_str(), nullptr, 10); std::size_t y = std::strtoul(b.c_str(), nullptr, 10); return x>y; });
+										{std::size_t x = std::strtoul(a.c_str(), nullptr, 10); std::size_t y = std::strtoul(b.c_str(), nullptr, 10); return x>y; });
 			this->is_db_changed = true;
 			return true;
 		}
