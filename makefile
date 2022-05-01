@@ -19,4 +19,5 @@ gui:
 install:
 	$(CC) $(CFLAGS_CLI) ${TARGET_CLI} -o ${OUT_CLI}
 	$(CC) $(CFLAGS_GUI) ${TARGET_GUI} -o ${OUT_GUI}
-	sudo mv ./todo ./todo-gui /usr/bin
+	sudo mv ./todo ./todo-gui /usr/bin/
+	sudo cp ./todo_gui.desktop /usr/share/applications/
