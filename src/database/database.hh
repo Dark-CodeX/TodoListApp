@@ -62,7 +62,7 @@ namespace todo
 		bool contains(const openutils::sstring &ind) const;
 		bool completed(const openutils::sstring &ind);
 
-		openutils::optional_t<openutils::vector_t<heap_pair<todo::heap_pair<openutils::sstring, todo::task>, double>>> search(const openutils::sstring &keyword) const;
+		openutils::vector_t<heap_pair<todo::heap_pair<openutils::sstring, todo::task>, double>> search(const openutils::sstring &keyword) const;
 		bool sort(const openutils::sstring &col, const openutils::sstring &order);
 		void normalize();
 		void clear();
@@ -344,7 +344,7 @@ namespace todo
 		this->is_db_changed = true;
 	}
 
-	openutils::optional_t<openutils::vector_t<heap_pair<todo::heap_pair<openutils::sstring, todo::task>, double>>> database::search(const openutils::sstring &kword) const
+	openutils::vector_t<heap_pair<todo::heap_pair<openutils::sstring, todo::task>, double>> database::search(const openutils::sstring &kword) const
 	{
 		openutils::vector_t<heap_pair<todo::heap_pair<openutils::sstring, todo::task>, double>> val;
 		openutils::sstring key_ = kword;
