@@ -355,16 +355,11 @@ namespace todo
 			openutils::sstring temp_date = i->value.get_date().to_string(), temp_desc = i->value.get_description();
 			temp_desc.to_lower();
 			if ((temp_date.soundex() == key_.soundex() || temp_date.contains(keyword) || temp_date.starts_with(keyword) || temp_date.ends_with(keyword)) && (temp_desc.soundex() == key_.soundex() || temp_desc.contains(keyword) || temp_desc.starts_with(keyword) || temp_desc.ends_with(keyword)))
-				val.add({{i->key, i->value},
-						 ((temp_desc.percentage_matched(keyword) + temp_desc.edit_distance(keyword)) +
-						  (temp_date.percentage_matched(keyword) + temp_date.edit_distance(keyword))) /
-							 2});
+				val.add({{i->key, i->value}, (temp_desc.percentage_matched(keyword) + temp_date.percentage_matched(keyword)) / 2});
 			else if (temp_desc.soundex() == key_.soundex() || temp_desc.contains(keyword) || temp_desc.starts_with(keyword) || temp_desc.ends_with(keyword))
-				val.add({{i->key, i->value},
-						 ((temp_desc.percentage_matched(keyword) + temp_desc.edit_distance(keyword)))});
+				val.add({{i->key, i->value}, temp_desc.percentage_matched(keyword)});
 			else if (temp_date.soundex() == key_.soundex() || temp_date.contains(keyword) || temp_date.starts_with(keyword) || temp_date.ends_with(keyword))
-				val.add({{i->key, i->value},
-						 ((temp_date.percentage_matched(keyword) + temp_date.edit_distance(keyword)))});
+				val.add({{i->key, i->value}, temp_date.percentage_matched(keyword)});
 			else
 				continue;
 		}
