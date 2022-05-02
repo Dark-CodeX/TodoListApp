@@ -217,4 +217,14 @@ void search_task()
 	search_table->get_buffer()->set_text(str.c_str());
 }
 
+void show_help()
+{
+	msgbox(help, "Help");
+}
+
+void show_libs()
+{
+	msgbox(lib_todo, "Library");
+}
+
 #endif

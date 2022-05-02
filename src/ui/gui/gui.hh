@@ -45,9 +45,6 @@ void init_variables()
 	builder->get_widget("export_open", export_open);
 	openutils::exit_heap_fail(export_open);
 
-	builder->get_widget("search_key", search_key);
-	openutils::exit_heap_fail(search_key);
-
 	builder->get_widget("search_table", search_table);
 	openutils::exit_heap_fail(search_table);
 
@@ -102,8 +99,21 @@ void init_variables()
 	import_btn->signal_clicked().connect([]()
 										 { import_task(); });
 
+	builder->get_widget("search_key", search_key);
+	openutils::exit_heap_fail(search_key);
 	search_key->signal_search_changed().connect([]()
 											 { search_task(); });
+
+	builder->get_widget("about_help", about_help);
+	openutils::exit_heap_fail(about_help);
+	about_help->signal_clicked().connect([]()
+										 { show_help(); });
+
+	builder->get_widget("about_libs", about_libs);
+	openutils::exit_heap_fail(about_libs);
+	about_libs->signal_clicked().connect([]()
+										 { show_libs(); });
+	
 }
 
 void remove_variables()
@@ -138,6 +148,9 @@ void remove_variables()
 
 	delete search_key;
 	delete search_table;
+
+	delete about_help;
+	delete about_libs;
 
 	delete main_window;
 }
