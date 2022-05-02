@@ -12,6 +12,36 @@ int msgbox(const Glib::ustring &message, const Glib::ustring &title)
 	return dialog.run();
 }
 
+void search_task()
+{
+	openutils::map_t<openutils::sstring, todo::heap_pair<todo::task, double>> res;
+	openutils::sstring tokens = search_key->get_text().c_str();
+	openutils::split_t spt = tokens.split(" ");
+	for (size_t i = 0; i < spt.length(); i++)
+	{
+		auto temp = base_db.search(spt[i]);
+		for (auto k = temp.iterator(); k.c_loop(); k.next())
+			res.add((*k).first().first(), {(*k).first().second(), (*k).second()});
+	}
+
+	openutils::sstring str;
+	str.append_formatted(512, "%s\n", todo::center("Tasks", 144, '-').c_str());
+	str.append_formatted(512, "| %s | %s | %s | %s | %s | %s |\n", todo::center("ID", 9).c_str(), todo::center("Description", 51).c_str(), todo::center("Valid Till", 21).c_str(), todo::center("Is Expired", 17).c_str(), todo::center("Is Completed", 17).c_str(), todo::center("% Matched", 10).c_str());
+	str.append_formatted(512, "------------------------------------------------------------------------------------------------------------------------------------------------\n");
+	for (auto i = res.iterator(); i.c_loop(); i.next())
+	{
+		str.append_formatted(512, "| %s | %s | %s | %s | %s | %s |\n",
+							 todo::center((*i)->key, 9).c_str(),
+							 todo::center((*i)->value.first().get_description(), 51).c_str(),
+							 todo::center((*i)->value.first().get_date().to_string() + " (" + openutils::sstring::to_sstring((*i)->value.first().get_date().days_between(todo::date())) + " DAYS)", 21).c_str(),
+							 todo::center(openutils::sstring::to_sstring((*i)->value.first().is_expired()), 17).c_str(),
+							 todo::center(openutils::sstring::to_sstring((*i)->value.first().is_completed()), 17).c_str(),
+							 todo::center(openutils::sstring::to_sstring((*i)->value.second()), 10).c_str());
+		str.append_formatted(512, "------------------------------------------------------------------------------------------------------------------------------------------------\n");
+	}
+	search_table->get_buffer()->set_text(str.c_str());
+}
+
 void refresh_main_table()
 {
 	openutils::sstring str = "";
@@ -29,6 +59,7 @@ void refresh_main_table()
 		str.append_formatted(512, "-----------------------------------------------------------------------------------------------------------------------------------\n");
 	}
 	main_table->get_buffer()->set_text(str.c_str());
+	search_task();
 }
 
 void init_database()
@@ -185,36 +216,6 @@ void import_task()
 	}
 	else
 		return;
-}
-
-void search_task()
-{
-	openutils::map_t<openutils::sstring, todo::heap_pair<todo::task, double>> res;
-	openutils::sstring tokens = search_key->get_text().c_str();
-	openutils::split_t spt = tokens.split(" ");
-	for (size_t i = 0; i < spt.length(); i++)
-	{
-		auto temp = base_db.search(spt[i]);
-		for (auto k = temp.iterator(); k.c_loop(); k.next())
-			res.add((*k).first().first(), {(*k).first().second(), (*k).second()});
-	}
-
-	openutils::sstring str;
-	str.append_formatted(512, "%s\n", todo::center("Tasks", 144, '-').c_str());
-	str.append_formatted(512, "| %s | %s | %s | %s | %s | %s |\n", todo::center("ID", 9).c_str(), todo::center("Description", 51).c_str(), todo::center("Valid Till", 21).c_str(), todo::center("Is Expired", 17).c_str(), todo::center("Is Completed", 17).c_str(), todo::center("% Matched", 10).c_str());
-	str.append_formatted(512, "------------------------------------------------------------------------------------------------------------------------------------------------\n");
-	for (auto i = res.iterator(); i.c_loop(); i.next())
-	{
-		str.append_formatted(512, "| %s | %s | %s | %s | %s | %s |\n",
-							 todo::center((*i)->key, 9).c_str(),
-							 todo::center((*i)->value.first().get_description(), 51).c_str(),
-							 todo::center((*i)->value.first().get_date().to_string() + " (" + openutils::sstring::to_sstring((*i)->value.first().get_date().days_between(todo::date())) + " DAYS)", 21).c_str(),
-							 todo::center(openutils::sstring::to_sstring((*i)->value.first().is_expired()), 17).c_str(),
-							 todo::center(openutils::sstring::to_sstring((*i)->value.first().is_completed()), 17).c_str(),
-							 todo::center(openutils::sstring::to_sstring((*i)->value.second()), 10).c_str());
-		str.append_formatted(512, "------------------------------------------------------------------------------------------------------------------------------------------------\n");
-	}
-	search_table->get_buffer()->set_text(str.c_str());
 }
 
 void show_help()
