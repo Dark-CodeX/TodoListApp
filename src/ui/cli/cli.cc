@@ -11,6 +11,7 @@ int main(int argc, char **argv)
 			{
 				printf("/> ");
 				command.in();
+				command.remove_extra_char(' ');
 				if (command.compare("exit") || command.compare("quit"))
 					return EXIT_SUCCESS;
 				openutils::split_t spt = command.split(" ");
@@ -30,9 +31,6 @@ int main(int argc, char **argv)
 					else
 						tokens.add(spt[i++]);
 				}
-				for (size_t i = 0; i < tokens.length(); i++)
-					std::cout << "`" << tokens[i] << "`" << std::endl;
-
 				entry_sstr(tokens.length(), tokens.raw_data());
 			}
 		}
