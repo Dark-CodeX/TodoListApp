@@ -15,6 +15,8 @@ static const char *help = "USAGE: --OPTION -SUB-OPTIONS\r\n"
 						  "    --export      exports all the data to a file\r\n"
 						  "    --import      imports a file\r\n"
 						  "    --normalize   normalizes the `id` column like 1...n, where `n` is number of total tasks\r\n"
+						  "    --init        opens a command prompt which executes commands\r\n"
+						  "    --open        opens a file containing list of commands to be executed\r\n"
 						  "    --version     print the current version of the application";
 
 static const char *lib_todo = "Copyright 2022-2023 Tushar Chaurasia\r\n"
@@ -36,6 +38,8 @@ static const char *help = "USAGE: --OPTION -SUB-OPTIONS\n"
 						  "    --export      exports all the data to a file\n"
 						  "    --import      imports a file\n"
 						  "    --normalize   normalizes the `id` column like 1...n, where `n` is number of total tasks\n"
+						  "    --init        opens a command prompt which executes commands\n"
+						  "    --open        opens a file containing list of commands to be executed\n"
 						  "    --version     print the current version of the application";
 
 static const char *lib_todo = "Copyright 2022-2023 Tushar Chaurasia\n"
