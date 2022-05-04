@@ -6,11 +6,6 @@
 
 int entry(int argc, char **argv)
 {
-	if (argc == 1)
-	{
-		std::cerr << "err: no argument, use `--help` flag to see help." << std::endl;
-		return EXIT_FAILURE;
-	}
 	todo::io io;
 	openutils::optional_t<openutils::sstring> data = io.open(io.get_home_dir() + "/todo_data.dat");
 
