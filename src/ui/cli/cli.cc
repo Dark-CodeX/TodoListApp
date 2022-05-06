@@ -34,13 +34,13 @@ int main(int argc, char **argv)
 		openutils::sstring command;
 		while (true)
 		{
-			printf("/> ");
+			std::printf("/> ");
+			std::fflush(stdout);
 			command.in();
 			command.remove_extra_char(' ');
-			if (command.compare("exit") || command.compare("quit"))
-				return EXIT_SUCCESS;
 			openutils::vector_t<openutils::sstring> tokens = command_to_vector_t(command, argv[0]);
-			entry_sstr(tokens.length(), tokens.raw_data());
+			if (entry_sstr(tokens.length(), tokens.raw_data()) == -1)
+				return EXIT_SUCCESS;
 		}
 	}
 	else if (openutils::sstring::to_sstring(argv[1]) == "--open")
@@ -56,12 +56,13 @@ int main(int argc, char **argv)
 			std::cerr << "err: file `" << argv[2] << "` could not be opened." << std::endl;
 			return EXIT_FAILURE;
 		}
-		openutils::split_t spt= cfile.split("\n");
+		openutils::split_t spt = cfile.split("\n");
 		for (std::size_t i = 0; i < spt.length(); i++)
 		{
 			std::cout << "/> " << spt[i] << openutils::sstring::end_line();
 			openutils::vector_t<openutils::sstring> vec = command_to_vector_t(spt[i], argv[0]);
-			entry_sstr(vec.length(), vec.raw_data());
+			if (entry_sstr(vec.length(), vec.raw_data()) == -1)
+				return EXIT_SUCCESS;
 		}
 		return EXIT_SUCCESS;
 	}
