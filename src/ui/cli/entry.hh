@@ -6,6 +6,11 @@
 
 int entry(int argc, char **argv)
 {
+	if (argc == 1)
+	{
+		std::cerr << "err: no argument, use `--help` flag to see help." << std::endl;
+		return EXIT_FAILURE;
+	}
 	todo::io io;
 	openutils::optional_t<openutils::sstring> data = io.open(io.get_home_dir() + "/todo_data.dat");
 
@@ -83,6 +88,13 @@ int entry(int argc, char **argv)
 							todo::center(openutils::sstring::to_sstring((*i)->value.second()), 10).c_str());
 			std::printf("------------------------------------------------------------------------------------------------------------------------------------------------\n");
 		}
+	}
+	else if (openutils::sstring::to_sstring(argv[1]) == openutils::sstring::to_sstring("--exit"))
+		return -1;
+	else if (openutils::sstring::to_sstring(argv[1]) == openutils::sstring::to_sstring("--clear"))
+	{
+		std::fprintf(stdout, "\e[1;1H\e[2J");
+		return EXIT_SUCCESS;
 	}
 	else if (openutils::sstring::to_sstring(argv[1]) == openutils::sstring::to_sstring("--normalize"))
 	{
@@ -448,7 +460,7 @@ int entry(int argc, char **argv)
 int entry_sstr(int argc, const openutils::sstring *argv)
 {
 	openutils::vector_t<const char *> ptr;
-	for(int i = 0 ; i < argc; i++)
+	for (int i = 0; i < argc; i++)
 		ptr.add(argv[i].c_str());
 	return entry(argc, (char **)ptr.raw_data());
 }
