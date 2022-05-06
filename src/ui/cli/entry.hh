@@ -442,7 +442,16 @@ int entry(int argc, char **argv)
 	}
 	else
 	{
-		std::cerr << "err: unknown command `" << argv[1] << "`." << std::endl;
+		std::cerr << "err: unknown command `" << argv[1] << "`";
+		openutils::vector_t<std::pair<openutils::sstring, double>> words = {{"--log", 0}, {"--add", 0}, {"--rm", 0}, {"--edit", 0}, {"--complete", 0}, {"--sort", 0}, {"--help", 0}, {"--lib", 0}, {"--search", 0}, {"--export", 0}, {"--import", 0}, {"--normalize", 0}, {"--init", 0}, {"--open", 0}, {"--version", 0}};
+		for (std::size_t i = 0; i < words.length(); i++)
+			words[i].second = words[i].first.percentage_matched(argv[1]);
+		words.sort([](std::pair<openutils::sstring, double> a, std::pair<openutils::sstring, double> b)
+				   { return a.second > b.second; });
+		if (words[0].second >= 50.0)
+			std::cerr << ", did you mean `" << words[0].first << "`?" << std::endl;
+		else
+			std::cerr << "." << std::endl;
 		return EXIT_FAILURE;
 	}
 	if (db.is_changed())
