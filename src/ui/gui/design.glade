@@ -73,9 +73,6 @@
 							<object class="GtkCalendar" id="add_date">
 								<property name="visible">True</property>
 								<property name="can-focus">True</property>
-								<property name="year">2022</property>
-								<property name="month">3</property>
-								<property name="day">24</property>
 								<property name="show-week-numbers">True</property>
 								<property name="show-details">False</property>
 							</object>
@@ -206,9 +203,6 @@
 							<object class="GtkCalendar" id="edit_date">
 								<property name="visible">True</property>
 								<property name="can-focus">True</property>
-								<property name="year">2022</property>
-								<property name="month">3</property>
-								<property name="day">24</property>
 							</object>
 							<packing>
 								<property name="expand">False</property>
