@@ -36,7 +36,7 @@ void search_task()
 							 todo::center((*i)->value.first().get_date().to_string() + " (" + openutils::sstring::to_sstring((*i)->value.first().get_date().days_between(todo::date())) + " DAYS)", 21).c_str(),
 							 todo::center(openutils::sstring::to_sstring((*i)->value.first().is_expired()), 17).c_str(),
 							 todo::center(openutils::sstring::to_sstring((*i)->value.first().is_completed()), 17).c_str(),
-							 todo::center(openutils::sstring::to_sstring((*i)->value.second()), 10).c_str());
+							 todo::center(todo::two_decimal_place((*i)->value.second()) + "%", 10).c_str());
 		str.append_formatted(512, "------------------------------------------------------------------------------------------------------------------------------------------------\n");
 	}
 	search_table->get_buffer()->set_text(str.c_str());

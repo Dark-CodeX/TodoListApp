@@ -41,6 +41,14 @@ namespace todo
 		}
 		return x;
 	}
+
+	static const inline openutils::sstring two_decimal_place(const double &n)
+	{
+		char s[std::numeric_limits<double>::digits + 2] = {};
+		std::snprintf(s, std::numeric_limits<double>::digits + 2, "%0.2lf", n);
+		return openutils::sstring(s);
+	}
+
 	class database
 	{
 	private:

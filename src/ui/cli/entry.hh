@@ -62,7 +62,7 @@ int entry(int argc, char **argv)
 							todo::center((*i)->value.first().get_date().to_string() + " (" + openutils::sstring::to_sstring((*i)->value.first().get_date().days_between(todo::date())) + " DAYS)", 21).c_str(),
 							todo::center(openutils::sstring::to_sstring((*i)->value.first().is_expired()), 17).c_str(),
 							todo::center(openutils::sstring::to_sstring((*i)->value.first().is_completed()), 17).c_str(),
-							todo::center(openutils::sstring::to_sstring((*i)->value.second()), 10).c_str());
+							todo::center(todo::two_decimal_place((*i)->value.second()) + "%", 10).c_str());
 			else if ((*i)->value.first().is_completed() == false && (*i)->value.first().is_expired() == false)
 				std::printf("| \u001b[33;1m%s\u001b[0m | \u001b[33;1m%s\u001b[0m | \u001b[33;1m%s\u001b[0m | \u001b[33;1m%s\u001b[0m | \u001b[33;1m%s\u001b[0m | \u001b[33;1m%s\u001b[0m |\n",
 							todo::center((*i)->key, 9).c_str(),
@@ -70,7 +70,7 @@ int entry(int argc, char **argv)
 							todo::center((*i)->value.first().get_date().to_string() + " (" + openutils::sstring::to_sstring((*i)->value.first().get_date().days_between(todo::date())) + " DAYS)", 21).c_str(),
 							todo::center(openutils::sstring::to_sstring((*i)->value.first().is_expired()), 17).c_str(),
 							todo::center(openutils::sstring::to_sstring((*i)->value.first().is_completed()), 17).c_str(),
-							todo::center(openutils::sstring::to_sstring((*i)->value.second()), 10).c_str());
+							todo::center(todo::two_decimal_place((*i)->value.second()) + "%", 10).c_str());
 			else if ((*i)->value.first().is_completed() == true && (*i)->value.first().is_expired() == false)
 				std::printf("| \u001b[32;1m%s\u001b[0m | \u001b[32;1m%s\u001b[0m | \u001b[32;1m%s\u001b[0m | \u001b[32;1m%s\u001b[0m | \u001b[32;1m%s\u001b[0m | \u001b[32;1m%s\u001b[0m |\n",
 							todo::center((*i)->key, 9).c_str(),
@@ -78,14 +78,14 @@ int entry(int argc, char **argv)
 							todo::center((*i)->value.first().get_date().to_string() + " (" + openutils::sstring::to_sstring((*i)->value.first().get_date().days_between(todo::date())) + " DAYS)", 21).c_str(),
 							todo::center(openutils::sstring::to_sstring((*i)->value.first().is_expired()), 17).c_str(),
 							todo::center(openutils::sstring::to_sstring((*i)->value.first().is_completed()), 17).c_str(),
-							todo::center(openutils::sstring::to_sstring((*i)->value.second()), 10).c_str());
+							todo::center(todo::two_decimal_place((*i)->value.second()) + "%", 10).c_str());
 			else if ((*i)->value.first().is_completed() == true && (*i)->value.first().is_expired() == true)
 				std::printf("| %s | %s | %s | %s | %s | %s |\n", todo::center((*i)->key, 9).c_str(),
 							todo::center((*i)->value.first().get_description(), 51).c_str(),
 							todo::center((*i)->value.first().get_date().to_string() + " (" + openutils::sstring::to_sstring((*i)->value.first().get_date().days_between(todo::date())) + " DAYS)", 21).c_str(),
 							todo::center(openutils::sstring::to_sstring((*i)->value.first().is_expired()), 17).c_str(),
 							todo::center(openutils::sstring::to_sstring((*i)->value.first().is_completed()), 17).c_str(),
-							todo::center(openutils::sstring::to_sstring((*i)->value.second()), 10).c_str());
+							todo::center(todo::two_decimal_place((*i)->value.second()) + "%", 10).c_str());
 			std::printf("------------------------------------------------------------------------------------------------------------------------------------------------\n");
 		}
 	}
