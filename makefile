@@ -1,10 +1,10 @@
 CC=g++
 
-CFLAGS_CLI=-O3 -DNDEBUG -Os -Ofast -Og -s -march=native -flto -funroll-all-loops -std=c++20
+CFLAGS_CLI=-O3 -DNDEBUG -Os -Ofast -Og -s -march=native -flto -funroll-all-loops -std=c++23
 TARGET_CLI=./src/ui/cli/cli.cc
 OUT_CLI=./todo
 
-CFLAGS_GUI=-O3 -Os -Ofast -Og -s -march=native -flto -funroll-all-loops -std=c++20 `pkg-config --cflags --libs gtkmm-3.0`
+CFLAGS_GUI=-O3 -Os -Ofast -Og -s -march=native -flto -funroll-all-loops -std=c++23 `pkg-config --cflags --libs gtkmm-3.0`
 TARGET_GUI=./src/ui/gui/gui.cc
 OUT_GUI=./todo-gui
 
