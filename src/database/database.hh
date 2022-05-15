@@ -371,8 +371,6 @@ namespace todo
 			else
 				continue;
 		}
-		val.sort([](heap_pair<todo::heap_pair<openutils::sstring, todo::task>, double> a, heap_pair<todo::heap_pair<openutils::sstring, todo::task>, double> b)
-				 { return a.second() > b.second(); });
 		return val;
 	}
 

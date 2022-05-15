@@ -50,6 +50,8 @@ int entry(int argc, char **argv)
 			std::cerr << "err: nothing found" << std::endl;
 			return EXIT_FAILURE;
 		}
+		res.sort_values([](openutils::node_t<openutils::sstring, todo::heap_pair<todo::task, double>> a, openutils::node_t<openutils::sstring, todo::heap_pair<todo::task, double>> b)
+						{ return a.value.second() > b.value.second(); });
 		std::printf("%s\n", todo::center("Tasks", 144, '-').c_str());
 		std::printf("| \u001b[34;1m%s\u001b[0m | \u001b[34;1m%s\u001b[0m | \u001b[34;1m%s\u001b[0m | \u001b[34;1m%s\u001b[0m | \u001b[34;1m%s\u001b[0m | \u001b[34;1m%s\u001b[0m |\n", todo::center("ID", 9).c_str(), todo::center("Description", 51).c_str(), todo::center("Valid Till", 21).c_str(), todo::center("Is Expired", 17).c_str(), todo::center("Is Completed", 17).c_str(), todo::center("% Matched", 10).c_str());
 		std::printf("------------------------------------------------------------------------------------------------------------------------------------------------\n");

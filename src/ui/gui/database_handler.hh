@@ -23,6 +23,8 @@ void search_task()
 		for (auto k = temp.iterator(); k.c_loop(); k.next())
 			res.add((*k).first().first(), {(*k).first().second(), (*k).second()});
 	}
+	res.sort_values([](openutils::node_t<openutils::sstring, todo::heap_pair<todo::task, double>> a, openutils::node_t<openutils::sstring, todo::heap_pair<todo::task, double>> b)
+					{ return a.value.second() > b.value.second(); });
 
 	openutils::sstring str;
 	str.append_formatted(512, "%s\n", todo::center("Tasks", 144, '-').c_str());
