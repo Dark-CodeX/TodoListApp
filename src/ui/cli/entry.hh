@@ -250,15 +250,20 @@ int entry(int argc, char **argv)
 	{
 		if (argc > 2)
 		{
-			openutils::sstring repeat = argv[2];
-			if (!repeat.is_digit())
+			openutils::sstring prt_full = argv[2];
+			if (!prt_full.is_digit())
 			{
-				std::cerr << "err: `" << repeat << "` should be a number." << std::endl;
+				std::cerr << "err: `" << prt_full << "` should be a number." << std::endl;
 				return EXIT_FAILURE;
 			}
-			std::size_t n_rep = std::strtoul(argv[2], nullptr, 10);
-			for (std::size_t i = 0; i < n_rep; i++)
-				db.log();
+			if (!db.contains(prt_full))
+			{
+				std::cerr << "err: ID `" << prt_full << "` was not found." << std::endl;
+				return EXIT_FAILURE;
+			}
+			todo::heap_pair<openutils::sstring, todo::task> t_nth = db.get(prt_full);
+			std::cout << "ID: " << t_nth.first() << openutils::sstring::end_line() << "Description: " << t_nth.second().get_description() << openutils::sstring::end_line() << "Valid Till: " << t_nth.second().get_date().to_string() << openutils::sstring::end_line() << "Is Expired: " << openutils::sstring::to_sstring(t_nth.second().is_expired()) << openutils::sstring::end_line() << "Is Completed: " << openutils::sstring::to_sstring(t_nth.second().is_completed()) << std::endl;
+			return EXIT_SUCCESS;
 		}
 		else
 			db.log();

@@ -60,6 +60,7 @@ namespace todo
 		database();
 		void lexer(const openutils::sstring &txt);
 		const openutils::map_t<openutils::sstring, task> &get() const;
+		heap_pair<openutils::sstring, task> get(const openutils::sstring &nth) const;
 
 		void mark_active();
 		bool add(const task &tsk);
@@ -286,6 +287,11 @@ namespace todo
 	const openutils::map_t<openutils::sstring, task> &database::get() const
 	{
 		return this->delta;
+	}
+
+	heap_pair<openutils::sstring, task> database::get(const openutils::sstring &nth) const
+	{
+		return {this->delta.get_node(nth)->key, this->delta.get_node(nth)->value};
 	}
 
 	std::size_t database::get_last_index() const
