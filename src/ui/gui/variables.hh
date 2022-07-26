@@ -12,6 +12,7 @@
 #include <gtkmm/comboboxtext.h>
 #include <gtkmm/filechooserbutton.h>
 #include <gtkmm/searchentry.h>
+#include <gtkmm/settings.h>
 
 #include "../../io/io.hh"
 #include "../../date/date.hh"

@@ -41,3 +41,6 @@ build
 #Assembly Files
 *.s
 *.asm
+
+#Executable Files
+*.exe
