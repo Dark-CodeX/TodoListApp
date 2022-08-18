@@ -1,0 +1,1 @@
+This project is aims to manage our day-to-day work (todos) which has to be done at right time.
