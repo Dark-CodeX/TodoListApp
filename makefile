@@ -2,11 +2,11 @@ CC=g++
 
 CFLAGS_CLI=-O3 -DNDEBUG -Os -Ofast -Og -s -march=native -masm=intel -flto=auto -funroll-all-loops -std=c++23
 TARGET_CLI=./src/ui/cli/cli.cc
-OUT_CLI=./todo
+OUT_CLI=./bin/todo
 
-CFLAGS_GUI=-O3 -Os -Ofast -Og -s -march=native -masm=intel -flto=auto -funroll-all-loops -std=c++23 `pkgconf --cflags --libs gtkmm-3.0` -mwindows
+CFLAGS_GUI=-O3 -Os -Ofast -Og -s -march=native -masm=intel -flto=auto -funroll-all-loops -std=c++23 `pkgconf --cflags --libs gtkmm-3.0`
 TARGET_GUI=./src/ui/gui/gui.cc
-OUT_GUI=./todo-gui
+OUT_GUI=./bin/todo-gui
 
 all:install
 
