@@ -1,7 +1,7 @@
 #ifndef TODO_TAKS_H
 #define TODO_TAKS_H
 
-#include "../date/date.hh"
+#include <openutils/date-time/date.hh>
 #include <openutils/sstring/sstring.hh>
 #include "../heap-pair/heap-pair.hh"
 
@@ -10,15 +10,15 @@ namespace todo
 	class task
 	{
 	private:
-		heap_pair<openutils::sstring, date> __task;
+		heap_pair<openutils::sstring, openutils::date> __task;
 		bool expired = false;
 		bool completed = false;
 
 	public:
 		task();
-		task(const openutils::sstring &desc, const date &dt, const bool &compt);
-		task(const openutils::sstring &desc, const date &dt);
-		task(openutils::sstring &&desc, date &&dt);
+		task(const openutils::sstring &desc, const openutils::date &dt, const bool &compt);
+		task(const openutils::sstring &desc, const openutils::date &dt);
+		task(openutils::sstring &&desc, openutils::date &&dt);
 		task(const task &t);
 		task(task &&t);
 
@@ -29,7 +29,7 @@ namespace todo
 		bool is_completed() const;
 
 		const openutils::sstring &get_description() const;
-		const date &get_date() const;
+		const openutils::date &get_date() const;
 
 		void operator=(const task &t);
 		void operator=(task &&t);
@@ -38,18 +38,18 @@ namespace todo
 
 	task::task() = default;
 
-	task::task(const openutils::sstring &desc, const date &dt, const bool &compt)
+	task::task(const openutils::sstring &desc, const openutils::date &dt, const bool &compt)
 	{
 		this->__task = heap_pair(desc, dt);
 		this->completed = compt;
 	}
 
-	task::task(const openutils::sstring &desc, const date &dt)
+	task::task(const openutils::sstring &desc, const openutils::date &dt)
 	{
 		this->__task = heap_pair(desc, dt);
 	}
 
-	task::task(openutils::sstring &&desc, date &&dt)
+	task::task(openutils::sstring &&desc, openutils::date &&dt)
 	{
 		this->__task = heap_pair(desc, dt);
 	}
@@ -70,7 +70,7 @@ namespace todo
 
 	void task::mark_expired()
 	{
-		if (this->__task.second() > date())
+		if (this->__task.second() > openutils::date())
 			this->expired = false;
 		else
 			this->expired = true;
@@ -96,7 +96,7 @@ namespace todo
 		return this->__task.first();
 	}
 
-	const date &task::get_date() const
+	const openutils::date &task::get_date() const
 	{
 		return this->__task.second();
 	}

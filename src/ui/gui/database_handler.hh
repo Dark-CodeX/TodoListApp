@@ -35,7 +35,7 @@ void search_task()
 		str.append_formatted(512, "| %s | %s | %s | %s | %s | %s |\n",
 							 todo::center((*i)->key, 9).c_str(),
 							 todo::center((*i)->value.first().get_description(), 51).c_str(),
-							 todo::center((*i)->value.first().get_date().to_string() + " (" + openutils::sstring::to_sstring((*i)->value.first().get_date().days_between(todo::date())) + " DAYS)", 21).c_str(),
+							 todo::center((*i)->value.first().get_date().to_string() + " (" + openutils::sstring::to_sstring((*i)->value.first().get_date().days_between(openutils::date())) + " DAYS)", 21).c_str(),
 							 todo::center(openutils::sstring::to_sstring((*i)->value.first().is_expired()), 17).c_str(),
 							 todo::center(openutils::sstring::to_sstring((*i)->value.first().is_completed()), 17).c_str(),
 							 todo::center(todo::two_decimal_place((*i)->value.second()) + "%", 10).c_str());
@@ -55,7 +55,7 @@ void refresh_main_table()
 		str.append_formatted(512, "| %s | %s | %s | %s | %s |\n",
 							 todo::center(i->key, 9).c_str(),
 							 todo::center(i->value.get_description(), 51).c_str(),
-							 todo::center(i->value.get_date().to_string() + " (" + openutils::sstring::to_sstring(i->value.get_date().days_between(todo::date())) + " DAYS)", 21).c_str(),
+							 todo::center(i->value.get_date().to_string() + " (" + openutils::sstring::to_sstring(i->value.get_date().days_between(openutils::date())) + " DAYS)", 21).c_str(),
 							 todo::center(openutils::sstring::to_sstring(i->value.is_expired()), 17).c_str(),
 							 todo::center(openutils::sstring::to_sstring(i->value.is_completed()), 17).c_str());
 		str.append_formatted(512, "-----------------------------------------------------------------------------------------------------------------------------------\n");
@@ -125,7 +125,7 @@ void add_task()
 {
 	Glib::Date temp_date;
 	add_date->get_date(temp_date);
-	if (!base_db.add(todo::task(add_desc->get_text().c_str(), todo::date(temp_date.get_day(), temp_date.get_month(), temp_date.get_year()))))
+	if (!base_db.add(todo::task(add_desc->get_text().c_str(), openutils::date(temp_date.get_day(), temp_date.get_month(), temp_date.get_year()))))
 	{
 		msgbox("Task could not be added.", "Error: Add Failed");
 		return;
@@ -144,7 +144,7 @@ void edit_task()
 	}
 	Glib::Date temp_date;
 	edit_date->get_date(temp_date);
-	if (!base_db.edit(ind, todo::task(edit_desc->get_text().c_str(), todo::date(temp_date.get_day(), temp_date.get_month(), temp_date.get_year()))))
+	if (!base_db.edit(ind, todo::task(edit_desc->get_text().c_str(), openutils::date(temp_date.get_day(), temp_date.get_month(), temp_date.get_year()))))
 	{
 		msgbox("Task could not be edited.", "Error: Edit Failed");
 		return;

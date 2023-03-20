@@ -2,7 +2,7 @@
 #define TODO_DATABASE_H
 
 #include "../io/io.hh"
-#include "../date/date.hh"
+#include <openutils/date-time/date.hh>
 #include "../heap-pair/heap-pair.hh"
 #include "../task/task.hh"
 #include <openutils/map/map.hh>
@@ -275,7 +275,7 @@ namespace todo
 
 		for (openutils::iter_vector_t i = inds.iterator(); i.c_loop(); i.next())
 		{
-			if (!this->delta.add(inds[i.index()], task(descs[i.index()], date(dates[i.index()]), compts[i.index()])))
+			if (!this->delta.add(inds[i.index()], task(descs[i.index()], openutils::date(dates[i.index()]), compts[i.index()])))
 			{
 				std::fprintf(stderr, "err: could not add the data [`%s`, `%s`, `%s`] at index `%s`.\n", descs[i.index()].c_str(), dates[i.index()].c_str(), openutils::sstring::to_sstring(compts[i.index()]).c_str(), inds[i.index()].c_str());
 				std::exit(EXIT_FAILURE);
@@ -469,27 +469,27 @@ namespace todo
 				std::printf("| \u001b[31;1m%s\u001b[0m | \u001b[31;1m%s\u001b[0m | \u001b[31;1m%s\u001b[0m | \u001b[31;1m%s\u001b[0m | \u001b[31;1m%s\u001b[0m |\n",
 							center(i->key, 9).c_str(),
 							center(i->value.get_description(), 51).c_str(),
-							center(i->value.get_date().to_string() + " (" + openutils::sstring::to_sstring(i->value.get_date().days_between(date())) + " DAYS)", 21).c_str(),
+							center(i->value.get_date().to_string() + " (" + openutils::sstring::to_sstring(i->value.get_date().days_between(openutils::date())) + " DAYS)", 21).c_str(),
 							center(openutils::sstring::to_sstring(i->value.is_expired()), 17).c_str(),
 							center(openutils::sstring::to_sstring(i->value.is_completed()), 17).c_str());
 			else if (i->value.is_completed() == false && i->value.is_expired() == false)
 				std::printf("| \u001b[33;1m%s\u001b[0m | \u001b[33;1m%s\u001b[0m | \u001b[33;1m%s\u001b[0m | \u001b[33;1m%s\u001b[0m | \u001b[33;1m%s\u001b[0m |\n",
 							center(i->key, 9).c_str(),
 							center(i->value.get_description(), 51).c_str(),
-							center(i->value.get_date().to_string() + " (" + openutils::sstring::to_sstring(i->value.get_date().days_between(date())) + " DAYS)", 21).c_str(),
+							center(i->value.get_date().to_string() + " (" + openutils::sstring::to_sstring(i->value.get_date().days_between(openutils::date())) + " DAYS)", 21).c_str(),
 							center(openutils::sstring::to_sstring(i->value.is_expired()), 17).c_str(),
 							center(openutils::sstring::to_sstring(i->value.is_completed()), 17).c_str());
 			else if (i->value.is_completed() == true && i->value.is_expired() == false)
 				std::printf("| \u001b[32;1m%s\u001b[0m | \u001b[32;1m%s\u001b[0m | \u001b[32;1m%s\u001b[0m | \u001b[32;1m%s\u001b[0m | \u001b[32;1m%s\u001b[0m |\n",
 							center(i->key, 9).c_str(),
 							center(i->value.get_description(), 51).c_str(),
-							center(i->value.get_date().to_string() + " (" + openutils::sstring::to_sstring(i->value.get_date().days_between(date())) + " DAYS)", 21).c_str(),
+							center(i->value.get_date().to_string() + " (" + openutils::sstring::to_sstring(i->value.get_date().days_between(openutils::date())) + " DAYS)", 21).c_str(),
 							center(openutils::sstring::to_sstring(i->value.is_expired()), 17).c_str(),
 							center(openutils::sstring::to_sstring(i->value.is_completed()), 17).c_str());
 			else if (i->value.is_completed() == true && i->value.is_expired() == true)
 				std::printf("| %s | %s | %s | %s | %s |\n", center(i->key, 9).c_str(),
 							center(i->value.get_description(), 51).c_str(),
-							center(i->value.get_date().to_string() + " (" + openutils::sstring::to_sstring(i->value.get_date().days_between(date())) + " DAYS)", 21).c_str(),
+							center(i->value.get_date().to_string() + " (" + openutils::sstring::to_sstring(i->value.get_date().days_between(openutils::date())) + " DAYS)", 21).c_str(),
 							center(openutils::sstring::to_sstring(i->value.is_expired()), 17).c_str(),
 							center(openutils::sstring::to_sstring(i->value.is_completed()), 17).c_str());
 			std::printf("-----------------------------------------------------------------------------------------------------------------------------------\n");

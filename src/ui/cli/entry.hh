@@ -1,5 +1,5 @@
 #include "../../io/io.hh"
-#include "../../date/date.hh"
+#include <openutils/date-time/date.hh>
 #include "../../database/database.hh"
 #include "../../help/help.hh"
 #include <iostream>
@@ -61,7 +61,7 @@ int entry(int argc, char **argv)
 				std::printf("| \u001b[31;1m%s\u001b[0m | \u001b[31;1m%s\u001b[0m | \u001b[31;1m%s\u001b[0m | \u001b[31;1m%s\u001b[0m | \u001b[31;1m%s\u001b[0m | \u001b[31;1m%s\u001b[0m |\n",
 							todo::center((*i)->key, 9).c_str(),
 							todo::center((*i)->value.first().get_description(), 51).c_str(),
-							todo::center((*i)->value.first().get_date().to_string() + " (" + openutils::sstring::to_sstring((*i)->value.first().get_date().days_between(todo::date())) + " DAYS)", 21).c_str(),
+							todo::center((*i)->value.first().get_date().to_string() + " (" + openutils::sstring::to_sstring((*i)->value.first().get_date().days_between(openutils::date())) + " DAYS)", 21).c_str(),
 							todo::center(openutils::sstring::to_sstring((*i)->value.first().is_expired()), 17).c_str(),
 							todo::center(openutils::sstring::to_sstring((*i)->value.first().is_completed()), 17).c_str(),
 							todo::center(todo::two_decimal_place((*i)->value.second()) + "%", 10).c_str());
@@ -69,7 +69,7 @@ int entry(int argc, char **argv)
 				std::printf("| \u001b[33;1m%s\u001b[0m | \u001b[33;1m%s\u001b[0m | \u001b[33;1m%s\u001b[0m | \u001b[33;1m%s\u001b[0m | \u001b[33;1m%s\u001b[0m | \u001b[33;1m%s\u001b[0m |\n",
 							todo::center((*i)->key, 9).c_str(),
 							todo::center((*i)->value.first().get_description(), 51).c_str(),
-							todo::center((*i)->value.first().get_date().to_string() + " (" + openutils::sstring::to_sstring((*i)->value.first().get_date().days_between(todo::date())) + " DAYS)", 21).c_str(),
+							todo::center((*i)->value.first().get_date().to_string() + " (" + openutils::sstring::to_sstring((*i)->value.first().get_date().days_between(openutils::date())) + " DAYS)", 21).c_str(),
 							todo::center(openutils::sstring::to_sstring((*i)->value.first().is_expired()), 17).c_str(),
 							todo::center(openutils::sstring::to_sstring((*i)->value.first().is_completed()), 17).c_str(),
 							todo::center(todo::two_decimal_place((*i)->value.second()) + "%", 10).c_str());
@@ -77,14 +77,14 @@ int entry(int argc, char **argv)
 				std::printf("| \u001b[32;1m%s\u001b[0m | \u001b[32;1m%s\u001b[0m | \u001b[32;1m%s\u001b[0m | \u001b[32;1m%s\u001b[0m | \u001b[32;1m%s\u001b[0m | \u001b[32;1m%s\u001b[0m |\n",
 							todo::center((*i)->key, 9).c_str(),
 							todo::center((*i)->value.first().get_description(), 51).c_str(),
-							todo::center((*i)->value.first().get_date().to_string() + " (" + openutils::sstring::to_sstring((*i)->value.first().get_date().days_between(todo::date())) + " DAYS)", 21).c_str(),
+							todo::center((*i)->value.first().get_date().to_string() + " (" + openutils::sstring::to_sstring((*i)->value.first().get_date().days_between(openutils::date())) + " DAYS)", 21).c_str(),
 							todo::center(openutils::sstring::to_sstring((*i)->value.first().is_expired()), 17).c_str(),
 							todo::center(openutils::sstring::to_sstring((*i)->value.first().is_completed()), 17).c_str(),
 							todo::center(todo::two_decimal_place((*i)->value.second()) + "%", 10).c_str());
 			else if ((*i)->value.first().is_completed() == true && (*i)->value.first().is_expired() == true)
 				std::printf("| %s | %s | %s | %s | %s | %s |\n", todo::center((*i)->key, 9).c_str(),
 							todo::center((*i)->value.first().get_description(), 51).c_str(),
-							todo::center((*i)->value.first().get_date().to_string() + " (" + openutils::sstring::to_sstring((*i)->value.first().get_date().days_between(todo::date())) + " DAYS)", 21).c_str(),
+							todo::center((*i)->value.first().get_date().to_string() + " (" + openutils::sstring::to_sstring((*i)->value.first().get_date().days_between(openutils::date())) + " DAYS)", 21).c_str(),
 							todo::center(openutils::sstring::to_sstring((*i)->value.first().is_expired()), 17).c_str(),
 							todo::center(openutils::sstring::to_sstring((*i)->value.first().is_completed()), 17).c_str(),
 							todo::center(todo::two_decimal_place((*i)->value.second()) + "%", 10).c_str());
@@ -358,7 +358,7 @@ int entry(int argc, char **argv)
 				return EXIT_FAILURE;
 			}
 		}
-		if (!db.edit(__ind, todo::task(__desc, todo::date(__date))))
+		if (!db.edit(__ind, todo::task(__desc, openutils::date(__date))))
 		{
 			std::cerr << "err: could not edit the task [`" << __desc << "`, `" << __date << "`] at index `" << __ind << "`." << std::endl;
 			return EXIT_FAILURE;
@@ -427,7 +427,7 @@ int entry(int argc, char **argv)
 				return EXIT_FAILURE;
 			}
 		}
-		if (!db.add(todo::task(__desc, todo::date(__date))))
+		if (!db.add(todo::task(__desc, openutils::date(__date))))
 		{
 			std::cerr << "err: could not add the task [`" << __desc << "`, `" << __date << "`] at index `" << db.get_last_index() << "`." << std::endl;
 			return EXIT_FAILURE;

@@ -15,7 +15,7 @@
 #include <gtkmm/settings.h>
 
 #include "../../io/io.hh"
-#include "../../date/date.hh"
+#include <openutils/date-time/date.hh>
 #include "../../database/database.hh"
 #include "../../help/help.hh"
 
