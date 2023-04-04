@@ -44,3 +44,4 @@ build
 
 #Executable Files
 *.exe
+bin
