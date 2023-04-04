@@ -3,7 +3,7 @@
 
 #include "../io/io.hh"
 #include <openutils/date-time/date.hh>
-#include "../heap-pair/heap-pair.hh"
+#include <openutils/heap-pair/heap-pair.hh>
 #include "../task/task.hh"
 #include <openutils/map/map.hh>
 #include <openutils/vector/vector.hh>
@@ -60,7 +60,7 @@ namespace todo
 		database();
 		void lexer(const openutils::sstring &txt);
 		const openutils::map_t<openutils::sstring, task> &get() const;
-		heap_pair<openutils::sstring, task> get(const openutils::sstring &nth) const;
+		openutils::heap_pair<openutils::sstring, task> get(const openutils::sstring &nth) const;
 
 		void mark_active();
 		bool add(const task &tsk);
@@ -71,7 +71,7 @@ namespace todo
 		bool contains(const openutils::sstring &ind) const;
 		bool completed(const openutils::sstring &ind);
 
-		openutils::vector_t<heap_pair<todo::heap_pair<openutils::sstring, todo::task>, double>> search(const openutils::sstring &keyword) const;
+		openutils::vector_t<openutils::heap_pair<openutils::heap_pair<openutils::sstring, todo::task>, double>> search(const openutils::sstring &keyword) const;
 		bool sort(const openutils::sstring &col, const openutils::sstring &order);
 		void normalize();
 		void clear();
@@ -289,7 +289,7 @@ namespace todo
 		return this->delta;
 	}
 
-	heap_pair<openutils::sstring, task> database::get(const openutils::sstring &nth) const
+	openutils::heap_pair<openutils::sstring, task> database::get(const openutils::sstring &nth) const
 	{
 		return {this->delta.get_node(nth)->key, this->delta.get_node(nth)->value};
 	}
@@ -358,9 +358,9 @@ namespace todo
 		this->is_db_changed = true;
 	}
 
-	openutils::vector_t<heap_pair<todo::heap_pair<openutils::sstring, todo::task>, double>> database::search(const openutils::sstring &kword) const
+	openutils::vector_t<openutils::heap_pair<openutils::heap_pair<openutils::sstring, todo::task>, double>> database::search(const openutils::sstring &kword) const
 	{
-		openutils::vector_t<heap_pair<todo::heap_pair<openutils::sstring, todo::task>, double>> val;
+		openutils::vector_t<openutils::heap_pair<openutils::heap_pair<openutils::sstring, todo::task>, double>> val;
 		openutils::sstring key_ = kword;
 		key_.to_lower();
 		const char *keyword = key_.c_str();
@@ -443,12 +443,12 @@ namespace todo
 
 	void database::normalize()
 	{
-		openutils::vector_t<heap_pair<openutils::sstring, task>> temp;
+		openutils::vector_t<openutils::heap_pair<openutils::sstring, task>> temp;
 		for (openutils::iter_map_t i = this->delta.iterator(); i.c_loop(); i.next())
 			temp.add({i->key, i->value});
 		this->delta.erase();
 		std::size_t nos = 1;
-		for (openutils::vector_t<heap_pair<openutils::sstring, task>>::iter i = temp.iterator(); i.c_loop(); i.next())
+		for (openutils::vector_t<openutils::heap_pair<openutils::sstring, task>>::iter i = temp.iterator(); i.c_loop(); i.next())
 			this->delta.add(openutils::sstring::to_sstring(nos++), (*i).second());
 		this->is_db_changed = true;
 	}

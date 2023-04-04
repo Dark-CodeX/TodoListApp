@@ -24,7 +24,8 @@ static const char *lib_todo = "Copyright 2022-2023 Tushar Chaurasia\r\n"
 							  "    2. [vector v" vector_t_version "]       (https://github.com/Dark-CodeX/vector.git)         Tushar Chaurasia\r\n"
 							  "    3. [map v" map_t_version "]          (https://github.com/Dark-CodeX/map.git)            Tushar Chaurasia\r\n"
 							  "    4. [returns v" returns_version "]      (https://github.com/Dark-CodeX/returns.git)        Tushar Chaurasia\r\n"
-							  "    5. [date-time v" date_time_version "]    (https://github.com/Dark-CodeX/date-time.git)      Tushar Chaurasia";
+							  "    5. [date-time v" date_time_version "]    (https://github.com/Dark-CodeX/date-time.git)      Tushar Chaurasia\r\n"
+							  "    6. [heap-pair v" heap_pair_version "]    (https://github.com/Dark-CodeX/heap-pair.git)      Tushar Chaurasia";
 #else
 static const char *help = "USAGE: --OPTION -SUB-OPTIONS\n"
 						  "    --log         print todo tasks, works with `--add`, `--rm`, `--edit`, `--complete`, `--sort` and `--normalize`\n"
@@ -48,6 +49,7 @@ static const char *lib_todo = "Copyright 2022-2023 Tushar Chaurasia\n"
 							  "    2. [vector v" vector_t_version "]       (https://github.com/Dark-CodeX/vector.git)         Tushar Chaurasia\n"
 							  "    3. [map v" map_t_version "]          (https://github.com/Dark-CodeX/map.git)            Tushar Chaurasia\n"
 							  "    4. [returns v" returns_version "]      (https://github.com/Dark-CodeX/returns.git)        Tushar Chaurasia\n"
-							  "    5. [date-time v" date_time_version "]    (https://github.com/Dark-CodeX/date-time.git)      Tushar Chaurasia";
+							  "    5. [date-time v" date_time_version "]    (https://github.com/Dark-CodeX/date-time.git)      Tushar Chaurasia\n"
+							  "    6. [heap-pair v" heap_pair_version "]    (https://github.com/Dark-CodeX/heap-pair.git)      Tushar Chaurasia";
 #endif
 #endif

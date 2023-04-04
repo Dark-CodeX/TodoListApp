@@ -3,14 +3,14 @@
 
 #include <openutils/date-time/date.hh>
 #include <openutils/sstring/sstring.hh>
-#include "../heap-pair/heap-pair.hh"
+#include <openutils/heap-pair/heap-pair.hh>
 
 namespace todo
 {
 	class task
 	{
 	private:
-		heap_pair<openutils::sstring, openutils::date> __task;
+		openutils::heap_pair<openutils::sstring, openutils::date> __task;
 		bool expired = false;
 		bool completed = false;
 
@@ -40,18 +40,18 @@ namespace todo
 
 	task::task(const openutils::sstring &desc, const openutils::date &dt, const bool &compt)
 	{
-		this->__task = heap_pair(desc, dt);
+		this->__task = openutils::heap_pair(desc, dt);
 		this->completed = compt;
 	}
 
 	task::task(const openutils::sstring &desc, const openutils::date &dt)
 	{
-		this->__task = heap_pair(desc, dt);
+		this->__task = openutils::heap_pair(desc, dt);
 	}
 
 	task::task(openutils::sstring &&desc, openutils::date &&dt)
 	{
-		this->__task = heap_pair(desc, dt);
+		this->__task = openutils::heap_pair(desc, dt);
 	}
 
 	task::task(const task &t)

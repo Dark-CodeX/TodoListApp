@@ -14,7 +14,7 @@ int msgbox(const Glib::ustring &message, const Glib::ustring &title)
 
 void search_task()
 {
-	openutils::map_t<openutils::sstring, todo::heap_pair<todo::task, double>> res;
+	openutils::map_t<openutils::sstring, openutils::heap_pair<todo::task, double>> res;
 	openutils::sstring tokens = search_key->get_text().c_str();
 	openutils::split_t spt = tokens.split(" ");
 	for (size_t i = 0; i < spt.length(); i++)
@@ -23,7 +23,7 @@ void search_task()
 		for (auto k = temp.iterator(); k.c_loop(); k.next())
 			res.add((*k).first().first(), {(*k).first().second(), (*k).second()});
 	}
-	res.sort_values([](openutils::node_t<openutils::sstring, todo::heap_pair<todo::task, double>> a, openutils::node_t<openutils::sstring, todo::heap_pair<todo::task, double>> b)
+	res.sort_values([](openutils::node_t<openutils::sstring, openutils::heap_pair<todo::task, double>> a, openutils::node_t<openutils::sstring, openutils::heap_pair<todo::task, double>> b)
 					{ return a.value.second() > b.value.second(); });
 
 	openutils::sstring str;

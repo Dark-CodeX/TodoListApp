@@ -5,7 +5,7 @@
 #include <openutils/map/map.hh>
 #include <openutils/returns/optional.hh>
 #include <openutils/date-time/date.hh>
-#include "../heap-pair/heap-pair.hh"
+#include <openutils/heap-pair/heap-pair.hh>
 #include "../task/task.hh"
 #include "../database/database.hh"
 

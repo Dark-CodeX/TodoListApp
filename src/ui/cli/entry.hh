@@ -38,7 +38,7 @@ int entry(int argc, char **argv)
 			return EXIT_FAILURE;
 		}
 
-		openutils::map_t<openutils::sstring, todo::heap_pair<todo::task, double>> res;
+		openutils::map_t<openutils::sstring, openutils::heap_pair<todo::task, double>> res;
 		for (int i = 2; i < argc; i++)
 		{
 			auto temp = db.search(argv[i]);
@@ -50,12 +50,12 @@ int entry(int argc, char **argv)
 			std::cerr << "err: nothing found" << std::endl;
 			return EXIT_FAILURE;
 		}
-		res.sort_values([](openutils::node_t<openutils::sstring, todo::heap_pair<todo::task, double>> a, openutils::node_t<openutils::sstring, todo::heap_pair<todo::task, double>> b)
+		res.sort_values([](openutils::node_t<openutils::sstring, openutils::heap_pair<todo::task, double>> a, openutils::node_t<openutils::sstring, openutils::heap_pair<todo::task, double>> b)
 						{ return a.value.second() > b.value.second(); });
 		std::printf("%s\n", todo::center("Tasks", 144, '-').c_str());
 		std::printf("| \u001b[34;1m%s\u001b[0m | \u001b[34;1m%s\u001b[0m | \u001b[34;1m%s\u001b[0m | \u001b[34;1m%s\u001b[0m | \u001b[34;1m%s\u001b[0m | \u001b[34;1m%s\u001b[0m |\n", todo::center("ID", 9).c_str(), todo::center("Description", 51).c_str(), todo::center("Valid Till", 21).c_str(), todo::center("Is Expired", 17).c_str(), todo::center("Is Completed", 17).c_str(), todo::center("% Matched", 10).c_str());
 		std::printf("------------------------------------------------------------------------------------------------------------------------------------------------\n");
-		for (openutils::map_t<openutils::sstring, todo::heap_pair<todo::task, double>>::iter i = res.iterator(); i.c_loop(); i.next())
+		for (openutils::map_t<openutils::sstring, openutils::heap_pair<todo::task, double>>::iter i = res.iterator(); i.c_loop(); i.next())
 		{
 			if ((*i)->value.first().is_completed() == false && (*i)->value.first().is_expired() == true)
 				std::printf("| \u001b[31;1m%s\u001b[0m | \u001b[31;1m%s\u001b[0m | \u001b[31;1m%s\u001b[0m | \u001b[31;1m%s\u001b[0m | \u001b[31;1m%s\u001b[0m | \u001b[31;1m%s\u001b[0m |\n",
@@ -261,7 +261,7 @@ int entry(int argc, char **argv)
 				std::cerr << "err: ID `" << prt_full << "` was not found." << std::endl;
 				return EXIT_FAILURE;
 			}
-			todo::heap_pair<openutils::sstring, todo::task> t_nth = db.get(prt_full);
+			openutils::heap_pair<openutils::sstring, todo::task> t_nth = db.get(prt_full);
 			std::cout << "ID: " << t_nth.first() << openutils::sstring::end_line() << "Description: " << t_nth.second().get_description() << openutils::sstring::end_line() << "Valid Till: " << t_nth.second().get_date().to_string() << openutils::sstring::end_line() << "Is Expired: " << openutils::sstring::to_sstring(t_nth.second().is_expired()) << openutils::sstring::end_line() << "Is Completed: " << openutils::sstring::to_sstring(t_nth.second().is_completed()) << std::endl;
 			return EXIT_SUCCESS;
 		}
