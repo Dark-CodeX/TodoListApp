@@ -16,7 +16,7 @@ void search_task()
 {
 	openutils::map_t<openutils::sstring, openutils::heap_pair<todo::task, double>> res;
 	openutils::sstring tokens = search_key->get_text().c_str();
-	openutils::split_t spt = tokens.split(" ");
+	openutils::vector_t<openutils::sstring> spt = tokens.split(" ");
 	for (size_t i = 0; i < spt.length(); i++)
 	{
 		auto temp = base_db.search(spt[i]);

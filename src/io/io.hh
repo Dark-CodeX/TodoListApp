@@ -75,7 +75,7 @@ namespace todo
 #else
 		x = std::getenv("HOME");
 #endif
-		if (x.empty())
+		if (x.is_empty())
 		{
 			std::fprintf(stderr, "err: could not obtain home path.\n");
 			std::exit(EXIT_FAILURE);
@@ -86,7 +86,7 @@ namespace todo
 	bool io::import_file(const openutils::sstring &loc_old, const openutils::sstring &loc_new) const
 	{
 		openutils::sstring cont_n = openutils::sstring::open_file(loc_new);
-		if (cont_n.empty())
+		if (cont_n.is_empty())
 		{
 			std::fprintf(stderr, "err: given file is either binary or empty.\n");
 			std::exit(EXIT_FAILURE);
