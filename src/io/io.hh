@@ -49,7 +49,7 @@ namespace todo
 
 	bool io::save(const openutils::map_t<openutils::sstring, task> &content, const openutils::sstring &location) const
 	{
-		openutils::sstring x;
+		openutils::sstring x = "";
 		for (openutils::iter_map_t i = content.iterator(); i.c_loop(); i.next())
 		{
 			x.append("[");
