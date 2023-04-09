@@ -450,13 +450,13 @@ int entry(int argc, char **argv)
 	else
 	{
 		std::cerr << "err: unknown command `" << argv[1] << "`";
-		openutils::vector_t<std::pair<openutils::sstring, double>> words = {{"--log", 0}, {"--add", 0}, {"--rm", 0}, {"--edit", 0}, {"--complete", 0}, {"--sort", 0}, {"--help", 0}, {"--lib", 0}, {"--search", 0}, {"--export", 0}, {"--import", 0}, {"--normalize", 0}, {"--open", 0}, {"--version", 0}, {"--clear", 0}, {"--exit", 0}};
+		openutils::vector_t<openutils::heap_pair<openutils::sstring, double>> words = {{"--log", 0}, {"--add", 0}, {"--rm", 0}, {"--edit", 0}, {"--complete", 0}, {"--sort", 0}, {"--help", 0}, {"--lib", 0}, {"--search", 0}, {"--export", 0}, {"--import", 0}, {"--normalize", 0}, {"--open", 0}, {"--version", 0}, {"--clear", 0}, {"--exit", 0}};
 		for (std::size_t i = 0; i < words.length(); i++)
-			words[i].second = words[i].first.percentage_matched(argv[1]);
-		words.sort([](std::pair<openutils::sstring, double> a, std::pair<openutils::sstring, double> b)
-				   { return a.second > b.second; });
-		if (words[0].second >= 50.0)
-			std::cerr << ", did you mean `" << words[0].first << "`?" << std::endl;
+			words[i].second() = words[i].first().percentage_matched(argv[1]);
+		words.sort([](openutils::heap_pair<openutils::sstring, double> a, openutils::heap_pair<openutils::sstring, double> b)
+				   { return a.second() > b.second(); });
+		if (words[0].second() >= 50.0)
+			std::cerr << ", did you mean `" << words[0].first() << "`?" << std::endl;
 		else
 			std::cerr << "." << std::endl;
 		return EXIT_FAILURE;
@@ -475,8 +475,8 @@ int entry(int argc, char **argv)
 
 int entry_sstr(int argc, const openutils::sstring *argv)
 {
-	openutils::vector_t<const char *> ptr;
+	openutils::vector_t<char *> ptr;
 	for (int i = 0; i < argc; i++)
-		ptr.add(argv[i].c_str());
-	return entry(argc, (char **)ptr.raw_data());
+		ptr.add((char *)argv[i].c_str());
+	return entry(argc, ptr.raw_data());
 }

@@ -207,7 +207,7 @@ namespace todo
 					n++;
 					while (pt.get(n).second() != openutils::lexer_token::NULL_END)
 					{
-						temp_date.append(pt[n].first().c_str());
+						temp_date.append(pt[n].first());
 						n++;
 					}
 					dates.add(temp_date);
@@ -363,17 +363,16 @@ namespace todo
 		openutils::vector_t<openutils::heap_pair<openutils::heap_pair<openutils::sstring, todo::task>, double>> val;
 		openutils::sstring key_ = kword;
 		key_.to_lower();
-		const char *keyword = key_.c_str();
 		for (openutils::map_t<openutils::sstring, task>::iter i = this->delta.iterator(); i.c_loop(); i.next())
 		{
 			openutils::sstring temp_date = i->value.get_date().to_string(), temp_desc = i->value.get_description();
 			temp_desc.to_lower();
-			if ((temp_date.soundex() == key_.soundex() || temp_date.contains(keyword) || temp_date.starts_with(keyword) || temp_date.ends_with(keyword)) && (temp_desc.soundex() == key_.soundex() || temp_desc.contains(keyword) || temp_desc.starts_with(keyword) || temp_desc.ends_with(keyword)))
-				val.add({{i->key, i->value}, (temp_desc.percentage_matched(keyword) + temp_date.percentage_matched(keyword)) / 2});
-			else if (temp_desc.soundex() == key_.soundex() || temp_desc.contains(keyword) || temp_desc.starts_with(keyword) || temp_desc.ends_with(keyword))
-				val.add({{i->key, i->value}, temp_desc.percentage_matched(keyword)});
-			else if (temp_date.soundex() == key_.soundex() || temp_date.contains(keyword) || temp_date.starts_with(keyword) || temp_date.ends_with(keyword))
-				val.add({{i->key, i->value}, temp_date.percentage_matched(keyword)});
+			if ((temp_date.soundex() == key_.soundex() || temp_date.contains(key_) || temp_date.starts_with(key_) || temp_date.ends_with(key_)) && (temp_desc.soundex() == key_.soundex() || temp_desc.contains(key_) || temp_desc.starts_with(key_) || temp_desc.ends_with(key_)))
+				val.add({{i->key, i->value}, (temp_desc.percentage_matched(key_) + temp_date.percentage_matched(key_)) / 2});
+			else if (temp_desc.soundex() == key_.soundex() || temp_desc.contains(key_) || temp_desc.starts_with(key_) || temp_desc.ends_with(key_))
+				val.add({{i->key, i->value}, temp_desc.percentage_matched(key_)});
+			else if (temp_date.soundex() == key_.soundex() || temp_date.contains(key_) || temp_date.starts_with(key_) || temp_date.ends_with(key_))
+				val.add({{i->key, i->value}, temp_date.percentage_matched(key_)});
 			else
 				continue;
 		}

@@ -42,7 +42,7 @@ namespace todo
 		else
 			std::fclose(f);
 		openutils::sstring x;
-		if (!x.open(location.c_str()))
+		if (!x.open(location))
 			return openutils::optnull;
 		return x;
 	}
@@ -53,16 +53,16 @@ namespace todo
 		for (openutils::iter_map_t i = content.iterator(); i.c_loop(); i.next())
 		{
 			x.append("[");
-			x.append(i->key.c_str());
+			x.append(i->key);
 			x.append("]:\n\t");
-			x.append(i->value.get_description().c_str());
+			x.append(i->value.get_description());
 			x.append("\n\t\tDATE: ");
-			x.append(i->value.get_date().to_string().c_str());
+			x.append(i->value.get_date().to_string());
 			x.append("\n\t\t\t");
-			x.append(openutils::sstring::to_sstring(i->value.is_completed()).c_str());
+			x.append(openutils::sstring::to_sstring(i->value.is_completed()));
 			x.append("\n");
 		}
-		return x.save(location.c_str());
+		return x.save(location);
 	}
 
 	const openutils::sstring io::get_home_dir() const
