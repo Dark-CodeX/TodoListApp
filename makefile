@@ -14,7 +14,11 @@ cli:
 	$(CC) $(CFLAGS_CLI) ${TARGET_CLI} -o ${OUT_CLI}
 
 gui:
-	$(CC) ${TARGET_GUI} $(CFLAGS_GUI) -o ${OUT_GUI}
+	ifeq ($(OS),Windows_NT) 
+		$(CC) ${TARGET_GUI} $(CFLAGS_GUI) -mwindows -o ${OUT_GUI}
+	else
+		$(CC) ${TARGET_GUI} $(CFLAGS_GUI) -o ${OUT_GUI}
+	endif
 
 install:
 	$(CC) $(CFLAGS_CLI) ${TARGET_CLI} -o ${OUT_CLI}
