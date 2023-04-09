@@ -70,7 +70,7 @@ namespace todo
 		openutils::sstring x;
 #if defined _WIN32 || defined _WIN64 || defined __CYGWIN__
 		x = std::getenv("HOME");
-		if(x.empty())
+		if(x.is_empty())
 		x = std::getenv("USERPROFILE");
 #else
 		x = std::getenv("HOME");

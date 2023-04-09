@@ -95,7 +95,7 @@ int entry(int argc, char **argv)
 		return -1;
 	else if (openutils::sstring::to_sstring(argv[1]) == openutils::sstring::to_sstring("--clear"))
 	{
-		std::fprintf(stdout, "\e[1;1H\e[2J");
+		std::fprintf(stdout, "\033[2J\033[H");
 		return EXIT_SUCCESS;
 	}
 	else if (openutils::sstring::to_sstring(argv[1]) == openutils::sstring::to_sstring("--normalize"))
