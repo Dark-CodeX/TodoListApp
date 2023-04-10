@@ -14,8 +14,8 @@ int main(int argc, char **argv)
 		{
 			std::printf("/> ");
 			std::fflush(stdout);
-			command.in().remove_extra_char(' ').append_start(openutils::sstring(argv[0]) + " ");
-			openutils::vector_t<openutils::sstring> tokens = command.to_argv();
+			command.in().remove_extra_char(' ');
+			openutils::vector_t<openutils::sstring> tokens = command.to_argv(argv[0]);
 			if (entry_sstr(tokens.length(), tokens.raw_data()) == -1)
 				return EXIT_SUCCESS;
 		}
@@ -37,7 +37,7 @@ int main(int argc, char **argv)
 		for (std::size_t i = 0; i < spt.length(); i++)
 		{
 			std::cout << "/> " << spt[i] << openutils::sstring::end_line();
-			openutils::vector_t<openutils::sstring> vec = spt[i].append_start(openutils::sstring(argv[0]) + " ").to_argv();
+			openutils::vector_t<openutils::sstring> vec = spt[i].to_argv(argv[0]);
 			if (entry_sstr(vec.length(), vec.raw_data()) == -1)
 				return EXIT_SUCCESS;
 		}
