@@ -45,3 +45,7 @@ build
 #Executable Files
 *.exe
 bin
+
+#CMAKE
+build
+package
