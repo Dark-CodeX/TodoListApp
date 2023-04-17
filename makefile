@@ -14,12 +14,16 @@ endif
 TARGET_GUI=./src/ui/gui/gui.cc
 OUT_GUI=./bin/todo-gui
 
-all:install
+all:compile_all
 
 cli:
 	$(CC) $(CFLAGS_CLI) ${TARGET_CLI} -o ${OUT_CLI}
 
 gui:
+	$(CC) ${TARGET_GUI} $(CFLAGS_GUI) -o ${OUT_GUI}
+
+compile_all:
+	$(CC) $(CFLAGS_CLI) ${TARGET_CLI} -o ${OUT_CLI}
 	$(CC) ${TARGET_GUI} $(CFLAGS_GUI) -o ${OUT_GUI}
 
 install:
