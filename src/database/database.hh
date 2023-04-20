@@ -51,12 +51,12 @@ namespace todo
 
     class database
     {
-    private:
+      private:
         openutils::map_t<openutils::sstring, task> delta;
         std::size_t last_index;
         bool is_db_changed;
 
-    public:
+      public:
         database();
         void lexer(const openutils::sstring &txt);
         const openutils::map_t<openutils::sstring, task> &get() const;
@@ -168,7 +168,7 @@ namespace todo
 
         for (std::size_t i = 2; i < st.length(); i += 4)
         {
-            openutils::vector_t<openutils::heap_pair<openutils::sstring, enum openutils::lexer_token>>  pt = st[i].lexer();
+            openutils::vector_t<openutils::heap_pair<openutils::sstring, enum openutils::lexer_token>> pt = st[i].lexer();
             std::size_t n = 0;
             while (pt.get(n).second() != openutils::lexer_token::NULL_END)
             {
@@ -187,7 +187,7 @@ namespace todo
                         std::exit(EXIT_FAILURE);
                     }
                     n++;
-                    if (pt.get(n).second() != openutils::lexer_token::WORD || pt[n].first()!= "DATE")
+                    if (pt.get(n).second() != openutils::lexer_token::WORD || pt[n].first() != "DATE")
                     {
                         std::fprintf(stderr, "err: `%s` in `%s` should be a `DATE`.\n", pt[n].first().c_str(), st[i].c_str());
                         std::exit(EXIT_FAILURE);
@@ -222,7 +222,7 @@ namespace todo
 
         for (std::size_t i = 3; i < st.length(); i += 4)
         {
-            openutils::vector_t<openutils::heap_pair<openutils::sstring, enum openutils::lexer_token>>  pt = st[i].lexer();
+            openutils::vector_t<openutils::heap_pair<openutils::sstring, enum openutils::lexer_token>> pt = st[i].lexer();
             std::size_t n = 0;
             while (pt.get(n).second() != openutils::lexer_token::NULL_END)
             {

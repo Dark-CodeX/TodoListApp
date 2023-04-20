@@ -9,12 +9,12 @@ namespace todo
 {
     class task
     {
-    private:
+      private:
         openutils::heap_pair<openutils::sstring, openutils::date> __task;
         bool expired = false;
         bool completed = false;
 
-    public:
+      public:
         task();
         task(const openutils::sstring &desc, const openutils::date &dt, const bool &compt);
         task(const openutils::sstring &desc, const openutils::date &dt);

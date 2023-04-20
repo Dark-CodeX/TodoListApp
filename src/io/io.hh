@@ -14,7 +14,7 @@ namespace todo
     class io
     {
 
-    public:
+      public:
         io();
         openutils::optional_t<openutils::sstring> open(const openutils::sstring &location) const;
         bool save(const openutils::map_t<openutils::sstring, task> &content, const openutils::sstring &location) const;
@@ -70,8 +70,8 @@ namespace todo
         openutils::sstring x;
 #if defined _WIN32 || defined _WIN64 || defined __CYGWIN__
         x = std::getenv("HOME");
-        if(x.is_empty())
-        x = std::getenv("USERPROFILE");
+        if (x.is_empty())
+            x = std::getenv("USERPROFILE");
 #else
         x = std::getenv("HOME");
 #endif

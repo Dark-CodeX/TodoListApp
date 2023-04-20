@@ -102,7 +102,7 @@ void init_variables()
     builder->get_widget("search_key", search_key);
     openutils::exit_heap_fail(search_key);
     search_key->signal_search_changed().connect([]()
-                                             { search_task(); });
+                                                { search_task(); });
 
     builder->get_widget("about_help", about_help);
     openutils::exit_heap_fail(about_help);
@@ -113,7 +113,6 @@ void init_variables()
     openutils::exit_heap_fail(about_libs);
     about_libs->signal_clicked().connect([]()
                                          { show_libs(); });
-    
 }
 
 void remove_variables()
