@@ -41,9 +41,9 @@ int entry(int argc, char **argv)
         openutils::map_t<openutils::sstring, openutils::heap_pair<todo::task, double>> res;
         for (int i = 2; i < argc; i++)
         {
-            auto temp = db.search(argv[i]);
-            for (auto k = temp.iterator(); k.c_loop(); k.next())
-                res.add((*k).first().first(), {(*k).first().second(), (*k).second()});
+            openutils::vector_t<openutils::heap_pair<openutils::heap_pair<openutils::sstring, todo::task>, double>> temp = db.search(argv[i]);
+            for (openutils::heap_pair<openutils::heap_pair<openutils::sstring, todo::task>, double> k : temp)
+                res.add(k.first().first(), {k.first().second(), k.second()});
         }
         if (res.length() == 0)
         {

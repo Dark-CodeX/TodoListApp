@@ -272,12 +272,12 @@ namespace todo
                 }
             }
         }
-
-        for (openutils::iter_vector_t i = inds.iterator(); i.c_loop(); i.next())
+        // for (openutils::iter_vector_t i = inds.iterator(); i.c_loop(); i.next())
+        for (std::size_t i = 0; i < inds.length(); i++)
         {
-            if (!this->delta.add(inds[i.index()], task(descs[i.index()], openutils::date(dates[i.index()]), compts[i.index()])))
+            if (!this->delta.add(inds[i], task(descs[i], openutils::date(dates[i]), compts[i])))
             {
-                std::fprintf(stderr, "err: could not add the data [`%s`, `%s`, `%s`] at index `%s`.\n", descs[i.index()].c_str(), dates[i.index()].c_str(), openutils::sstring::to_sstring(compts[i.index()]).c_str(), inds[i.index()].c_str());
+                std::fprintf(stderr, "err: could not add the data [`%s`, `%s`, `%s`] at index `%s`.\n", descs[i].c_str(), dates[i].c_str(), openutils::sstring::to_sstring(compts[i]).c_str(), inds[i].c_str());
                 std::exit(EXIT_FAILURE);
             }
         }
@@ -447,8 +447,8 @@ namespace todo
             temp.add({i->key, i->value});
         this->delta.erase();
         std::size_t nos = 1;
-        for (openutils::vector_t<openutils::heap_pair<openutils::sstring, task>>::iter i = temp.iterator(); i.c_loop(); i.next())
-            this->delta.add(openutils::sstring::to_sstring(nos++), (*i).second());
+        for (openutils::heap_pair<openutils::sstring, todo::task> i : temp)
+            this->delta.add(openutils::sstring::to_sstring(nos++), i.second());
         this->is_db_changed = true;
     }
 

@@ -19,9 +19,9 @@ void search_task()
     openutils::vector_t<openutils::sstring> spt = tokens.split(" ");
     for (size_t i = 0; i < spt.length(); i++)
     {
-        auto temp = base_db.search(spt[i]);
-        for (auto k = temp.iterator(); k.c_loop(); k.next())
-            res.add((*k).first().first(), {(*k).first().second(), (*k).second()});
+        openutils::vector_t<openutils::heap_pair<openutils::heap_pair<openutils::sstring, todo::task>, double>> temp = base_db.search(spt[i]);
+        for (openutils::heap_pair<openutils::heap_pair<openutils::sstring, todo::task>, double> k : temp)
+            res.add(k.first().first(), {k.first().second(), k.second()});
     }
     res.sort_values([](openutils::node_t<openutils::sstring, openutils::heap_pair<todo::task, double>> a, openutils::node_t<openutils::sstring, openutils::heap_pair<todo::task, double>> b)
                     { return a.value.second() > b.value.second(); });
@@ -30,7 +30,7 @@ void search_task()
     str.append_formatted(512, "%s\n", todo::center("Tasks", 144, '-').c_str());
     str.append_formatted(512, "| %s | %s | %s | %s | %s | %s |\n", todo::center("ID", 9).c_str(), todo::center("Description", 51).c_str(), todo::center("Valid Till", 21).c_str(), todo::center("Is Expired", 17).c_str(), todo::center("Is Completed", 17).c_str(), todo::center("% Matched", 10).c_str());
     str.append_formatted(512, "------------------------------------------------------------------------------------------------------------------------------------------------\n");
-    for (auto i = res.iterator(); i.c_loop(); i.next())
+    for (openutils::map_t<openutils::sstring, openutils::heap_pair<todo::task, double>>::iter i = res.iterator(); i.c_loop(); i.next())
     {
         str.append_formatted(512, "| %s | %s | %s | %s | %s | %s |\n",
                              todo::center((*i)->key, 9).c_str(),
