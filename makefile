@@ -1,14 +1,14 @@
 CC=g++
 
-CFLAGS_CLI=-O3 -DNDEBUG -Os -Ofast -Og -s -march=native -masm=intel -flto=auto -funroll-all-loops -std=c++23
+CFLAGS_CLI=-O3 -DNDEBUG -Os -Ofast -Og -s -march=native -masm=att -mtune=native -fipa-pta -ftree-vectorize -flto=auto -funroll-all-loops -std=c++23
 TARGET_CLI=./src/ui/cli/cli.cc
 OUT_CLI=./bin/todo
 
 OS := $(shell uname)
 ifeq ($(OS), Windows_NT)
-CFLAGS_GUI=-O3 -Os -Ofast -Og -s -march=native -masm=intel -flto=auto -funroll-all-loops -std=c++23 `pkgconf --cflags --libs gtkmm-3.0` -mwindows
+CFLAGS_GUI=-O3 -Os -Ofast -Og -s -march=native -masm=att -mtune=native -fipa-pta -ftree-vectorize -flto=auto -funroll-all-loops -std=c++23 `pkgconf --cflags --libs gtkmm-3.0` -mwindows
 else
-CFLAGS_GUI=-O3 -Os -Ofast -Og -s -march=native -masm=intel -flto=auto -funroll-all-loops -std=c++23 `pkgconf --cflags --libs gtkmm-3.0`
+CFLAGS_GUI=-O3 -Os -Ofast -Og -s -march=native -masm=att -mtune=native -fipa-pta -ftree-vectorize -flto=auto -funroll-all-loops -std=c++23 `pkgconf --cflags --libs gtkmm-3.0`
 endif
 
 TARGET_GUI=./src/ui/gui/gui.cc
