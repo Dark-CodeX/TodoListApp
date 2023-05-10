@@ -361,6 +361,8 @@ namespace todo
     openutils::vector_t<openutils::heap_pair<openutils::heap_pair<openutils::sstring, todo::task>, double>> database::search(const openutils::sstring &kword) const
     {
         openutils::vector_t<openutils::heap_pair<openutils::heap_pair<openutils::sstring, todo::task>, double>> val;
+        if (kword.is_null() || kword.length() == 0)
+            return val;
         openutils::sstring key_ = kword;
         key_.to_lower();
         for (openutils::map_t<openutils::sstring, task>::iter i = this->delta.iterator(); i.c_loop(); i.next())
