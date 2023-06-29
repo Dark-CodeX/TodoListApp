@@ -35,7 +35,7 @@ static const char *help = "USAGE: --OPTION -SUB-OPTIONS\n"
                           "    --complete    marks a task at a given index as completed\n"
                           "    --sort        sorts the column using given title name\n"
                           "    --help        print help\n"
-                          "    --lib         print all the library used and their respective authors\n"
+                          "    --libs        print all the library used and their respective authors\n"
                           "    --search      search for a keyword in all columns\n"
                           "    --export      exports all the data to a file\n"
                           "    --import      imports a file\n"
@@ -44,12 +44,12 @@ static const char *help = "USAGE: --OPTION -SUB-OPTIONS\n"
                           "    --open        opens a file containing list of commands to be executed\n"
                           "    --version     print the current version of the application";
 
-static const char *lib_todo = "Copyright 2022-2023 Tushar Chaurasia\n"
-                              "    1. [sstring v" sstring_version "]      (https://github.com/Dark-CodeX/sstring.git)        Tushar Chaurasia\n"
-                              "    2. [vector v" vector_t_version "]       (https://github.com/Dark-CodeX/vector.git)         Tushar Chaurasia\n"
-                              "    3. [map v" map_t_version "]          (https://github.com/Dark-CodeX/map.git)            Tushar Chaurasia\n"
-                              "    4. [optional v" optional_version "]      (https://github.com/Dark-CodeX/optional.git)        Tushar Chaurasia\n"
-                              "    5. [date-time v" date_time_version "]    (https://github.com/Dark-CodeX/date-time.git)      Tushar Chaurasia\n"
-                              "    6. [heap-pair v" heap_pair_version "]    (https://github.com/Dark-CodeX/heap-pair.git)      Tushar Chaurasia";
+static const char *libs_todo = "Copyright 2022-2023 Tushar Chaurasia\n"
+                              "    1. [sstring v" OPENUTILS_sstring_version "]      (https://github.com/Dark-CodeX/openutils.git)      Tushar Chaurasia\n"
+                              "    2. [vector v" OPENUTILS_vector_t_version "]       (https://github.com/Dark-CodeX/openutils.git)      Tushar Chaurasia\n"
+                              "    3. [map v" map_t_version "]          (https://github.com/Dark-CodeX/openutils.git)      Tushar Chaurasia\n"
+                              "    4. [optional v" OPENUTILS_optional_version "]     (https://github.com/Dark-CodeX/openutils.git)      Tushar Chaurasia\n"
+                              "    5. [date-time v" OPENUTILS_date_time_version "]    (https://github.com/Dark-CodeX/openutils.git)      Tushar Chaurasia\n"
+                              "    6. [heap-pair v" OPENUTILS_heap_pair_version "]    (https://github.com/Dark-CodeX/openutils.git)      Tushar Chaurasia";
 #endif
 #endif

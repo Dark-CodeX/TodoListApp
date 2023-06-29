@@ -227,7 +227,7 @@ void show_help()
 
 void show_libs()
 {
-    msgbox(lib_todo, "Library");
+    msgbox(libs_todo, "Library");
 }
 
 #endif

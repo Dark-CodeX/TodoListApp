@@ -28,8 +28,8 @@ int entry(int argc, char **argv)
         std::puts(help);
     else if (openutils::sstring::to_sstring(argv[1]) == openutils::sstring::to_sstring("--version"))
         std::cout << argv[0] << ": v1.0.0" << std::endl;
-    else if (openutils::sstring::to_sstring(argv[1]) == openutils::sstring::to_sstring("--lib"))
-        std::puts(lib_todo);
+    else if (openutils::sstring::to_sstring(argv[1]) == openutils::sstring::to_sstring("--libs"))
+        std::puts(libs_todo);
     else if (openutils::sstring::to_sstring(argv[1]) == openutils::sstring::to_sstring("--search"))
     {
         if (argc < 3)
@@ -450,7 +450,7 @@ int entry(int argc, char **argv)
     else
     {
         std::cerr << "err: unknown command `" << argv[1] << "`";
-        openutils::vector_t<openutils::heap_pair<openutils::sstring, double>> words = {{"--log", 0}, {"--add", 0}, {"--rm", 0}, {"--edit", 0}, {"--complete", 0}, {"--sort", 0}, {"--help", 0}, {"--lib", 0}, {"--search", 0}, {"--export", 0}, {"--import", 0}, {"--normalize", 0}, {"--open", 0}, {"--version", 0}, {"--clear", 0}, {"--exit", 0}};
+        openutils::vector_t<openutils::heap_pair<openutils::sstring, double>> words = {{"--log", 0}, {"--add", 0}, {"--rm", 0}, {"--edit", 0}, {"--complete", 0}, {"--sort", 0}, {"--help", 0}, {"--libs", 0}, {"--search", 0}, {"--export", 0}, {"--import", 0}, {"--normalize", 0}, {"--open", 0}, {"--version", 0}, {"--clear", 0}, {"--exit", 0}};
         for (std::size_t i = 0; i < words.length(); i++)
             words[i].second() = words[i].first().percentage_matched(argv[1]);
         words.sort([](openutils::heap_pair<openutils::sstring, double> a, openutils::heap_pair<openutils::sstring, double> b)
