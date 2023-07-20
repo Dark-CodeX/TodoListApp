@@ -40,8 +40,9 @@ depends('./src/ui/gui/variables.hh')
     make_dir = ['mkdir', '-p', './bin']
 
 if os != 'windows'
-    [install]:
+    [install_binary]:
         binary = ['sudo', 'mv', './bin/todo', './bin/todo-gui', '/usr/bin/']
+    [install_shortcut]:
 	    shortcut = ['sudo', 'cp', './todo_gui.desktop', '/usr/share/applications/']
 endif
 
@@ -63,5 +64,6 @@ endif
     compile_cli()
     compile_gui()
     if os != 'windows'
-        install()
+        install_binary()
+        install_shortcut()
     endif
