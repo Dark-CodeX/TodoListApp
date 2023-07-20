@@ -1,0 +1,67 @@
+depends('g++')
+depends('mv')
+depends('cp')
+depends('pkgconf')
+depends('./todo_gui.desktop')
+depends('./src/database/database.hh')
+depends('./src/help/help.hh')
+depends('./src/io/io.hh')
+depends('./src/task/task.hh')
+depends('./src/ui')
+depends('./src/ui/cli/cli.cc')
+depends('./src/ui/cli/entry.hh')
+depends('./src/ui/gui/database_handler.hh')
+depends('./src/ui/gui/design.glade')
+depends('./src/ui/gui/gui.cc')
+depends('./src/ui/gui/gui.hh')
+depends('./src/ui/gui/variables.hh')
+
+[compiler]:
+    compiler = 'g++'
+
+[arguments]:
+    cli = ['-O3', '-DNDEBUG', '-Os', '-Ofast', '-Og', '-s', '-march=native', '-masm=att', '-mtune=native', '-fipa-pta', '-ftree-vectorize', '-flto=auto', '-funroll-all-loops', '-std=c++23']
+    if os == 'windows'
+        gui = ['-O3', '-Os', '-Ofast', '-Og', '-s', '-march=native', '-masm=att', '-mtune=native', '-fipa-pta', '-ftree-vectorize', '-flto=auto', '-funroll-all-loops', '-std=c++23', '-mwindows']
+    else
+        gui = ['-O3', '-Os', '-Ofast', '-Og', '-s', '-march=native', '-masm=att', '-mtune=native', '-fipa-pta', '-ftree-vectorize', '-flto=auto', '-funroll-all-loops', '-std=c++23']
+    endif
+    shell('pkgconf --cflags --libs gtkmm-3.0')
+
+[sources]:
+    cli = './src/ui/cli/cli.cc'
+    gui = './src/ui/gui/gui.cc'
+
+[output]:
+    cli = ['-o', './bin/todo']
+    gui = ['-o', './bin/todo-gui']
+
+[setup]:
+    make_dir = ['mkdir', '-p', './bin']
+
+if os != 'windows'
+    [install]:
+        binary = ['sudo', 'mv', './bin/todo', './bin/todo-gui', '/usr/bin/']
+	    shortcut = ['sudo', 'cp', './todo_gui.desktop', '/usr/share/applications/']
+endif
+
+[compile_cli]:
+    compiler()
+    sources()[0]
+    arguments()[0]
+    output()[0]
+
+[compile_gui]:
+    compiler()
+    sources()[1]
+    arguments()[1]
+    arguments()[2]
+    output()[1]
+
+[all]:
+    setup()
+    compile_cli()
+    compile_gui()
+    if os == 'windows'
+        install()
+    endif
