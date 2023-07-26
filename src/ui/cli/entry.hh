@@ -364,7 +364,10 @@ int entry(int argc, char **argv)
                 return EXIT_FAILURE;
             }
         }
-        if (!db.edit(__ind, todo::task(__desc, openutils::date(__date))))
+        openutils::date d;
+        if (!d.from_string(__date))
+            return EXIT_FAILURE;
+        if (!db.edit(__ind, todo::task(__desc, d)))
         {
             std::cerr << "err: could not edit the task [`" << __desc << "`, `" << __date << "`] at index `" << __ind << "`." << std::endl;
             return EXIT_FAILURE;
@@ -433,7 +436,10 @@ int entry(int argc, char **argv)
                 return EXIT_FAILURE;
             }
         }
-        if (!db.add(todo::task(__desc, openutils::date(__date))))
+        openutils::date d;
+        if (!d.from_string(__date))
+            return EXIT_FAILURE;
+        if (!db.add(todo::task(__desc, d)))
         {
             std::cerr << "err: could not add the task [`" << __desc << "`, `" << __date << "`] at index `" << db.get_last_index() << "`." << std::endl;
             return EXIT_FAILURE;

@@ -95,44 +95,44 @@ namespace todo
         openutils::vector_t<openutils::sstring> st = txt.split("\n");
         for (std::size_t i = 0; i < st.length(); i += 4)
         {
-            openutils::vector_t<openutils::heap_pair<openutils::sstring, enum openutils::lexer_token>> pt = st[i].lexer();
+            openutils::vector_t<std::pair<openutils::sstring, openutils::sstring_lexer_token>> pt = st[i].lexer();
             std::size_t n = 0;
-            while (pt.get(n).second() != openutils::lexer_token::NULL_END)
+            while (pt.get(n).second != openutils::sstring_lexer_token::NULL_END)
             {
-                if (pt.get(n).second() == openutils::lexer_token::SPECIAL_CHAR && n == 0)
+                if (pt.get(n).second == openutils::sstring_lexer_token::SPECIAL_CHAR && n == 0)
                 {
-                    if (pt[n].first() != "[")
+                    if (pt[n].first != "[")
                     {
-                        std::fprintf(stderr, "err: `%s` in `%s` should be `[`.\n", pt[n].first().c_str(), st[i].c_str());
+                        std::fprintf(stderr, "err: `%s` in `%s` should be `[`.\n", pt[n].first.c_str(), st[i].c_str());
                         std::exit(EXIT_FAILURE);
                     }
                     n++;
-                    if (pt.get(n).second() == openutils::lexer_token::INTEGER)
+                    if (pt.get(n).second == openutils::sstring_lexer_token::INTEGER)
                     {
-                        inds.add(pt[n].first());
+                        inds.add(pt[n].first);
                     }
                     else
                     {
-                        std::fprintf(stderr, "err: `%s` in `%s` should be an integer.\n", pt[n].first().c_str(), st[i].c_str());
+                        std::fprintf(stderr, "err: `%s` in `%s` should be an integer.\n", pt[n].first.c_str(), st[i].c_str());
                         std::exit(EXIT_FAILURE);
                     }
                     n++;
-                    if (pt.get(n).second() != openutils::lexer_token::SPECIAL_CHAR && n == 2)
+                    if (pt.get(n).second != openutils::sstring_lexer_token::SPECIAL_CHAR && n == 2)
                     {
-                        std::fprintf(stderr, "err: `%s` in `%s` should be `]`.\n", pt[n].first().c_str(), st[i].c_str());
+                        std::fprintf(stderr, "err: `%s` in `%s` should be `]`.\n", pt[n].first.c_str(), st[i].c_str());
                         std::exit(EXIT_FAILURE);
                     }
                     n++;
-                    if (pt.get(n).second() != openutils::lexer_token::SPECIAL_CHAR && n == 3)
+                    if (pt.get(n).second != openutils::sstring_lexer_token::SPECIAL_CHAR && n == 3)
                     {
-                        std::fprintf(stderr, "err: `%s` in `%s` should be `:`.\n", pt[n].first().c_str(), st[i].c_str());
+                        std::fprintf(stderr, "err: `%s` in `%s` should be `:`.\n", pt[n].first.c_str(), st[i].c_str());
                         std::exit(EXIT_FAILURE);
                     }
                     n++;
                 }
                 else
                 {
-                    std::fprintf(stderr, "err: `%s` in `%s` should be `[`.\n", pt[n].first().c_str(), st[i].c_str());
+                    std::fprintf(stderr, "err: `%s` in `%s` should be `[`.\n", pt[n].first.c_str(), st[i].c_str());
                     std::exit(EXIT_FAILURE);
                 }
             }
@@ -144,29 +144,29 @@ namespace todo
 
         for (std::size_t i = 1; i < st.length(); i += 4)
         {
-            openutils::vector_t<openutils::heap_pair<openutils::sstring, enum openutils::lexer_token>> pt = st[i].lexer();
+            openutils::vector_t<std::pair<openutils::sstring, openutils::sstring_lexer_token>> pt = st[i].lexer();
             std::size_t n = 0;
-            while (pt.get(n).second() != openutils::lexer_token::NULL_END)
+            while (pt.get(n).second != openutils::sstring_lexer_token::NULL_END)
             {
-                if (pt.get(n).second() == openutils::lexer_token::ESC_SEQ && n == 0)
+                if (pt.get(n).second == openutils::sstring_lexer_token::ESC_SEQ && n == 0)
                 {
-                    if (pt[n].first() != "\t")
+                    if (pt[n].first != "\t")
                     {
-                        std::fprintf(stderr, "err: `%s` in `%s` should be a `TAB`.\n", pt[n].first().c_str(), st[i].c_str());
+                        std::fprintf(stderr, "err: `%s` in `%s` should be a `TAB`.\n", pt[n].first.c_str(), st[i].c_str());
                         std::exit(EXIT_FAILURE);
                     }
                     openutils::sstring temp_desc;
                     n++;
-                    while (pt.get(n).second() != openutils::lexer_token::NULL_END)
+                    while (pt.get(n).second != openutils::sstring_lexer_token::NULL_END)
                     {
-                        temp_desc.append(pt[n].first());
+                        temp_desc.append(pt[n].first);
                         n++;
                     }
                     descs.add(temp_desc);
                 }
                 else
                 {
-                    std::fprintf(stderr, "err: `%s` in `%s` should be a `TAB`.\n", pt[n].first().c_str(), st[i].c_str());
+                    std::fprintf(stderr, "err: `%s` in `%s` should be a `TAB`.\n", pt[n].first.c_str(), st[i].c_str());
                     std::exit(EXIT_FAILURE);
                 }
             }
@@ -174,53 +174,53 @@ namespace todo
 
         for (std::size_t i = 2; i < st.length(); i += 4)
         {
-            openutils::vector_t<openutils::heap_pair<openutils::sstring, enum openutils::lexer_token>> pt = st[i].lexer();
+            openutils::vector_t<std::pair<openutils::sstring, openutils::sstring_lexer_token>> pt = st[i].lexer();
             std::size_t n = 0;
-            while (pt.get(n).second() != openutils::lexer_token::NULL_END)
+            while (pt.get(n).second != openutils::sstring_lexer_token::NULL_END)
             {
-                if (pt.get(n).second() == openutils::lexer_token::ESC_SEQ && n == 0)
+                if (pt.get(n).second == openutils::sstring_lexer_token::ESC_SEQ && n == 0)
                 {
-                    if (pt[n].first() != "\t")
+                    if (pt[n].first != "\t")
                     {
-                        std::fprintf(stderr, "err: `%s` in `%s` should be a `TAB`.\n", pt[n].first().c_str(), st[i].c_str());
+                        std::fprintf(stderr, "err: `%s` in `%s` should be a `TAB`.\n", pt[n].first.c_str(), st[i].c_str());
                         std::exit(EXIT_FAILURE);
                     }
                     openutils::sstring temp_date;
                     n++;
-                    if (pt[n].first() != "\t")
+                    if (pt[n].first != "\t")
                     {
-                        std::fprintf(stderr, "err: `%s` in `%s` should be a `TAB`.\n", pt[n].first().c_str(), st[i].c_str());
+                        std::fprintf(stderr, "err: `%s` in `%s` should be a `TAB`.\n", pt[n].first.c_str(), st[i].c_str());
                         std::exit(EXIT_FAILURE);
                     }
                     n++;
-                    if (pt.get(n).second() != openutils::lexer_token::WORD || pt[n].first() != "DATE")
+                    if (pt.get(n).second != openutils::sstring_lexer_token::WORD || pt[n].first != "DATE")
                     {
-                        std::fprintf(stderr, "err: `%s` in `%s` should be a `DATE`.\n", pt[n].first().c_str(), st[i].c_str());
+                        std::fprintf(stderr, "err: `%s` in `%s` should be a `DATE`.\n", pt[n].first.c_str(), st[i].c_str());
                         std::exit(EXIT_FAILURE);
                     }
                     n++;
-                    if (pt.get(n).second() != openutils::lexer_token::SPECIAL_CHAR || pt[n].first() != ":")
+                    if (pt.get(n).second != openutils::sstring_lexer_token::SPECIAL_CHAR || pt[n].first != ":")
                     {
-                        std::fprintf(stderr, "err: `%s` in `%s` should be a `:`.\n", pt[n].first().c_str(), st[i].c_str());
+                        std::fprintf(stderr, "err: `%s` in `%s` should be a `:`.\n", pt[n].first.c_str(), st[i].c_str());
                         std::exit(EXIT_FAILURE);
                     }
                     n++;
-                    if (pt.get(n).second() != openutils::lexer_token::WHITESPACE || pt[n].first() != " ")
+                    if (pt.get(n).second != openutils::sstring_lexer_token::WHITESPACE || pt[n].first != " ")
                     {
-                        std::fprintf(stderr, "err: `%s` in `%s` should be a `WHITESPACE`.\n", pt[n].first().c_str(), st[i].c_str());
+                        std::fprintf(stderr, "err: `%s` in `%s` should be a `WHITESPACE`.\n", pt[n].first.c_str(), st[i].c_str());
                         std::exit(EXIT_FAILURE);
                     }
                     n++;
-                    while (pt.get(n).second() != openutils::lexer_token::NULL_END)
+                    while (pt.get(n).second != openutils::sstring_lexer_token::NULL_END)
                     {
-                        temp_date.append(pt[n].first());
+                        temp_date.append(pt[n].first);
                         n++;
                     }
                     dates.add(temp_date);
                 }
                 else
                 {
-                    std::fprintf(stderr, "err: `%s` in `%s` should be a `TAB`.\n", pt[n].first().c_str(), st[i].c_str());
+                    std::fprintf(stderr, "err: `%s` in `%s` should be a `TAB`.\n", pt[n].first.c_str(), st[i].c_str());
                     std::exit(EXIT_FAILURE);
                 }
             }
@@ -228,44 +228,44 @@ namespace todo
 
         for (std::size_t i = 3; i < st.length(); i += 4)
         {
-            openutils::vector_t<openutils::heap_pair<openutils::sstring, enum openutils::lexer_token>> pt = st[i].lexer();
+            openutils::vector_t<std::pair<openutils::sstring, openutils::sstring_lexer_token>> pt = st[i].lexer();
             std::size_t n = 0;
-            while (pt.get(n).second() != openutils::lexer_token::NULL_END)
+            while (pt.get(n).second != openutils::sstring_lexer_token::NULL_END)
             {
-                if (pt.get(n).second() == openutils::lexer_token::ESC_SEQ && n == 0)
+                if (pt.get(n).second == openutils::sstring_lexer_token::ESC_SEQ && n == 0)
                 {
-                    if (pt[n].first() != "\t")
+                    if (pt[n].first != "\t")
                     {
-                        std::fprintf(stderr, "err: `%s` in `%s` should be a `TAB`.\n", pt[n].first().c_str(), st[i].c_str());
+                        std::fprintf(stderr, "err: `%s` in `%s` should be a `TAB`.\n", pt[n].first.c_str(), st[i].c_str());
                         std::exit(EXIT_FAILURE);
                     }
                     n++;
-                    if (pt[n].first() != "\t")
+                    if (pt[n].first != "\t")
                     {
-                        std::fprintf(stderr, "err: `%s` in `%s` should be a `TAB`.\n", pt[n].first().c_str(), st[i].c_str());
+                        std::fprintf(stderr, "err: `%s` in `%s` should be a `TAB`.\n", pt[n].first.c_str(), st[i].c_str());
                         std::exit(EXIT_FAILURE);
                     }
                     n++;
-                    if (pt[n].first() != "\t")
+                    if (pt[n].first != "\t")
                     {
-                        std::fprintf(stderr, "err: `%s` in `%s` should be a `TAB`.\n", pt[n].first().c_str(), st[i].c_str());
+                        std::fprintf(stderr, "err: `%s` in `%s` should be a `TAB`.\n", pt[n].first.c_str(), st[i].c_str());
                         std::exit(EXIT_FAILURE);
                     }
                     n++;
-                    if (pt.get(n).second() != openutils::lexer_token::WORD)
+                    if (pt.get(n).second != openutils::sstring_lexer_token::WORD)
                     {
-                        std::fprintf(stderr, "err: `%s` in `%s` should be a `false` or `true`.\n", pt[n].first().c_str(), st[i].c_str());
+                        std::fprintf(stderr, "err: `%s` in `%s` should be a `false` or `true`.\n", pt[n].first.c_str(), st[i].c_str());
                         std::exit(EXIT_FAILURE);
                     }
                     else
                     {
-                        if (pt[n].first() == "true")
+                        if (pt[n].first == "true")
                             compts.add(true);
-                        else if (pt[n].first() == "false")
+                        else if (pt[n].first == "false")
                             compts.add(false);
                         else
                         {
-                            std::fprintf(stderr, "err: `%s` in `%s` should be a `false` or `true`.\n", pt[n].first().c_str(), st[i].c_str());
+                            std::fprintf(stderr, "err: `%s` in `%s` should be a `false` or `true`.\n", pt[n].first.c_str(), st[i].c_str());
                             std::exit(EXIT_FAILURE);
                         }
                         n++;
@@ -273,15 +273,18 @@ namespace todo
                 }
                 else
                 {
-                    std::fprintf(stderr, "err: `%s` in `%s` should be a `TAB`.\n", pt[n].first().c_str(), st[i].c_str());
+                    std::fprintf(stderr, "err: `%s` in `%s` should be a `TAB`.\n", pt[n].first.c_str(), st[i].c_str());
                     std::exit(EXIT_FAILURE);
                 }
             }
         }
         // for (openutils::iter_vector_t i = inds.iterator(); i.c_loop(); i.next())
+        openutils::date ___date___temp___;
         for (std::size_t i = 0; i < inds.length(); i++)
         {
-            if (!this->delta.add(inds[i], task(descs[i], openutils::date(dates[i]), compts[i])))
+            if (!___date___temp___.from_string(dates[i]))
+                std::exit(EXIT_FAILURE);
+            if (!this->delta.add(inds[i], task(descs[i], ___date___temp___, compts[i])))
             {
                 std::fprintf(stderr, "err: could not add the data [`%s`, `%s`, `%s`] at index `%s`.\n", descs[i].c_str(), dates[i].c_str(), openutils::sstring::to_sstring(compts[i]).c_str(), inds[i].c_str());
                 std::exit(EXIT_FAILURE);
